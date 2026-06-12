@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amir Jafari, Ph.D. — Data Scientist &amp; AI Researcher</title>
+  <meta name="description" content="Amir Jafari Ph.D. — Data Scientist, Google Cloud Faculty Expert. Expert in neural networks, NLP, generative AI, deep learning, and machine learning." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- ── NAV ──────────────────────────────────────────────────────── -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a class="nav-logo" href="#home" data-page="home">Amir Jafari, Ph.D.</a>
+      <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about"        data-page="about">About</a></li>
+        <li><a href="#skills"       data-page="skills">Skills</a></li>
+        <li><a href="#research"     data-page="research">Research</a></li>
+        <li><a href="#teaching"     data-page="teaching">Teaching</a></li>
+        <li><a href="#publications" data-page="publications">Publications</a></li>
+        <li><a href="#projects"     data-page="projects">Projects</a></li>
+        <li class="has-dropdown">
+          <a href="#open-source" data-page="open-source" class="dropdown-trigger">
+            Open Source <i class="fas fa-chevron-down dropdown-caret"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#pkg-timeseries" data-page="pkg-timeseries">Time Series Toolbox</a></li>
+            <li><a href="#pkg-nndesign"   data-page="pkg-nndesign">NN Design Demos</a></li>
+            <li><a href="#pkg-nnsom"      data-page="pkg-nnsom">NNSOM</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- PAGE: HOME / HERO                                             -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section id="home" class="page active">
+    <div class="hero-inner">
+      <div class="hero-photo">
+        <img src="assets/photo.jpg" alt="Amir Jafari"
+             onerror="this.style.display='none'; document.getElementById('photo-placeholder').style.display='flex';" />
+        <div id="photo-placeholder" class="photo-placeholder">
+          <i class="fas fa-user"></i>
+        </div>
+      </div>
+      <div class="hero-text">
+        <h1>Amir Jafari, Ph.D.</h1>
+        <p class="hero-title">Data Scientist &amp; AI Researcher</p>
+        <p class="hero-subtitle">Google Cloud Faculty Expert &nbsp;·&nbsp; IEEE Member &nbsp;·&nbsp; 10+ Years in AI Research</p>
+        <div class="hero-badges">
+          <span class="badge"><i class="fas fa-brain"></i> Deep Learning</span>
+          <span class="badge"><i class="fas fa-comments"></i> NLP &amp; Generative AI</span>
+          <span class="badge"><i class="fas fa-network-wired"></i> Neural Networks</span>
+          <span class="badge"><i class="fas fa-chart-line"></i> Time Series</span>
+          <span class="badge"><i class="fab fa-google"></i> Google Faculty Expert</span>
+        </div>
+        <div class="hero-links">
+          <a href="https://github.com/amir-jafari" target="_blank" class="btn btn-primary">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+          <a href="https://scholar.google.com/citations?user=HVfUixQAAAAJ&hl=en" target="_blank" class="btn btn-outline">
+            <i class="fas fa-graduation-cap"></i> Google Scholar
+          </a>
+          <a href="mailto:ajafari@gwu.edu" class="btn btn-outline">
+            <i class="fas fa-envelope"></i> Email
+          </a>
+        </div>
+        <div class="social-icons">
+          <a href="https://github.com/amir-jafari" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://scholar.google.com/citations?user=HVfUixQAAAAJ&hl=en" target="_blank" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+          <a href="mailto:ajafari@gwu.edu" title="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- PAGE: ABOUT                                                   -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section id="about" class="page">
+    <div class="section-inner">
+      <h2 class="section-title">About Me</h2>
+      <div class="about-grid">
+        <div class="about-bio">
+          <p>Amir Jafari, Ph.D., is an AI Researcher and Google Cloud Faculty Expert. His research focuses on Generative AI, Multi-Agent Systems, Natural Language Processing (NLP), Natural Language Generation (NLG), and Predictive Modeling—areas where he has made sustained contributions over more than a decade.</p>
+          <p>His work spans a broad spectrum of artificial intelligence methodologies, including deep learning, large language model (LLM) design and orchestration, statistical modeling, signal processing, and optimization of recurrent neural networks.</p>
+          <p>In recent years, his primary research has centered on Generative AI architectures and autonomous multi-agent systems—developing frameworks in which collaborative agents address complex, real-world problems at scale—alongside continued advances in NLP/NLG and GPU-accelerated training of large-scale models.</p>
+
+          <h3 class="subheading">Education</h3>
+          <div class="edu-item">
+            <span class="edu-degree">Ph.D. in Electrical and Computer Engineering</span>
+            <span class="edu-school">Oklahoma State University &nbsp;·&nbsp; 2012 – 2016</span>
+          </div>
+          <div class="edu-item">
+            <span class="edu-degree">M.Sc. in Mechatronics Engineering</span>
+            <span class="edu-school">American University of Sharjah &nbsp;·&nbsp; 2009 – 2011</span>
+          </div>
+          <h3 class="subheading" style="margin-top:1.75rem;">Contact</h3>
+          <div class="contact-items">
+            <div class="contact-row">
+              <i class="fas fa-envelope"></i>
+              <a href="mailto:ajafari@gwu.edu">ajafari@gwu.edu</a>
+            </div>
+            <div class="contact-row">
+              <i class="fab fa-github"></i>
+              <a href="https://github.com/amir-jafari" target="_blank">github.com/amir-jafari</a>
+            </div>
+            <div class="contact-row">
+              <i class="fas fa-graduation-cap"></i>
+              <a href="https://scholar.google.com/citations?user=HVfUixQAAAAJ&hl=en" target="_blank">Google Scholar</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-interests">
+          <h3>Research Interests</h3>
+          <ul>
+            <li><i class="fas fa-circle"></i> Natural Language Processing &amp; Generation</li>
+            <li><i class="fas fa-circle"></i> Generative AI &amp; Multi-Agent Systems</li>
+            <li><i class="fas fa-circle"></i> Large Language Models (LLMs)</li>
+            <li><i class="fas fa-circle"></i> Deep Learning &amp; Neural Network Design</li>
+            <li><i class="fas fa-circle"></i> Machine Learning &amp; Predictive Modeling</li>
+            <li><i class="fas fa-circle"></i> Time Series Analysis &amp; Forecasting</li>
+            <li><i class="fas fa-circle"></i> Computer Vision &amp; Image Processing</li>
+            <li><i class="fas fa-circle"></i> Recurrent Neural Networks (RNN / LSTM / GRU)</li>
+            <li><i class="fas fa-circle"></i> Statistical Modeling &amp; Bayesian Theory</li>
+            <li><i class="fas fa-circle"></i> GPU-Accelerated Big Data Training</li>
+          </ul>
+
+          <h3 style="margin-top:1.5rem;">Awards &amp; Recognition</h3>
+          <ul>
+            <li><i class="fas fa-circle"></i> Google Cloud Faculty Expert (2020)</li>
+            <li><i class="fas fa-circle"></i> IEEE Member (2016)</li>
+            <li><i class="fas fa-circle"></i> Guest Editor, Neural Computing and Applications</li>
+            <li><i class="fas fa-circle"></i> Peer Reviewer, Neural Computing &amp; Applications</li>
+            <li><i class="fas fa-circle"></i> Nvidia Computer Vision Certification</li>
+            <li><i class="fas fa-circle"></i> DataCamp Data Science Certification</li>
+          </ul>
+
+          <h3 style="margin-top:1.5rem;">Citation Metrics</h3>
+          <ul>
+            <li><i class="fas fa-circle"></i> Total Citations: <strong>336+</strong></li>
+            <li><i class="fas fa-circle"></i> h-index: <strong>8</strong></li>
+            <li><i class="fas fa-circle"></i> i10-index: <strong>7</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- PAGE: SKILLS                                                  -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section id="skills" class="page">
+    <div class="section-inner">
+      <h2 class="section-title">Skills &amp; Expertise</h2>
+      <p class="section-sub">Technical competencies spanning AI research, software engineering, and cloud platforms.</p>
+      <div class="skills-grid">
+
+        <div class="skill-group">
+          <h3><i class="fas fa-brain"></i> AI / ML Domains</h3>
+          <div class="skill-tags">
+            <span class="tag">Machine Learning</span>
+            <span class="tag">Deep Learning</span>
+            <span class="tag">Neural Network Design</span>
+            <span class="tag">Generative AI</span>
+            <span class="tag">Multi-Agent Systems</span>
+            <span class="tag">Natural Language Processing</span>
+            <span class="tag">Natural Language Generation</span>
+            <span class="tag">Large Language Models</span>
+            <span class="tag">Computer Vision</span>
+            <span class="tag">Predictive Modeling</span>
+            <span class="tag">Time Series Analysis</span>
+            <span class="tag">Bayesian Theory</span>
+            <span class="tag">Stochastic Systems</span>
+            <span class="tag">Clustering (SOM, K-Means)</span>
+            <span class="tag">Optimization (LM, GD, SCG)</span>
+            <span class="tag">System Dynamics</span>
+            <span class="tag">Nonlinear Control</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3><i class="fas fa-code"></i> Frameworks &amp; Libraries</h3>
+          <div class="skill-tags">
+            <span class="tag">Python</span>
+            <span class="tag">TensorFlow 2.x</span>
+            <span class="tag">PyTorch 2.x</span>
+            <span class="tag">Keras 3.x</span>
+            <span class="tag">LangChain</span>
+            <span class="tag">LangGraph</span>
+            <span class="tag">LangSmith</span>
+            <span class="tag">Streamlit</span>
+            <span class="tag">Linux / C / Bash</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3><i class="fas fa-cloud"></i> Cloud Platforms</h3>
+          <div class="skill-tags">
+            <span class="tag">Google Cloud (GCP)</span>
+            <span class="tag">Amazon Web Services (AWS)</span>
+            <span class="tag">Microsoft Azure</span>
+            <span class="tag">GPU Computing</span>
+            <span class="tag">Multi-core Processing</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3><i class="fas fa-comments"></i> NLP / LLM Models</h3>
+          <div class="skill-tags">
+            <span class="tag">BERT / XLNET / Electra</span>
+            <span class="tag">LLAMA 2</span>
+            <span class="tag">Falcon</span>
+            <span class="tag">Dolly</span>
+            <span class="tag">QLoRA Adapters</span>
+            <span class="tag">Reformer</span>
+            <span class="tag">Longformer</span>
+            <span class="tag">Whisper</span>
+            <span class="tag">Wav2Vec</span>
+            <span class="tag">DeepSpeech</span>
+            <span class="tag">UniSpeech</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- PAGE: RESEARCH                                                -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section id="research" class="page">
+    <div class="section-inner">
+      <h2 class="section-title">Research &amp; Grants</h2>
+      <p class="section-sub">Active research programs in AI, neural networks, and data-driven decision making.</p>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-robot"></i></div>
+          <h3>Multi-Agent AI &amp; LLMs</h3>
+          <p>Research on large language model orchestration, multi-agent architectures, and Natural Language Generation (NLG) and Understanding (NLU) for complex real-world tasks.</p>
+          <div class="card-tags"><span class="tag">LLMs</span><span class="tag">Multi-Agent</span><span class="tag">Generative AI</span></div>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-brain"></i></div>
+          <h3>Neural Network Design &amp; Training</h3>
+          <p>Novel training methods for recurrent neural networks, efficient optimization algorithms, and clustering methods for detecting network extrapolation in adaptive control systems.</p>
+          <div class="card-tags"><span class="tag">RNN</span><span class="tag">Optimization</span><span class="tag">NARX</span></div>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+          <h3>Time Series &amp; Forecasting</h3>
+          <p>Deep learning approaches for temporal forecasting using LSTM, GRU, and Transformers, with comparative studies against classical ARMA/ARIMA baselines.</p>
+          <div class="card-tags"><span class="tag">LSTM</span><span class="tag">Transformers</span><span class="tag">ARIMA</span></div>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-heartbeat"></i></div>
+          <h3>Medical AI &amp; Computer Vision</h3>
+          <p>Application of CNNs and pre-trained architectures (DenseNet, ResNet) to medical image analysis, surgical outcome prediction, and disease detection.</p>
+          <div class="card-tags"><span class="tag">CNN</span><span class="tag">Medical AI</span><span class="tag">GAN</span></div>
+        </div>
+      </div>
+
+      <h3 class="subsection-title">Funded Projects</h3>
+      <div class="pub-list">
+        <div class="pub-item">
+          <div class="pub-year">2024</div>
+          <div>
+            <p class="pub-title">TRAILS Seed Project — Trustworthy AI Systems</p>
+            <p class="pub-authors">National Science Foundation (NSF) &nbsp;·&nbsp; Co-Principal Investigator</p>
+            <p class="pub-venue">June 2024 – Present &nbsp;·&nbsp; Advancing research on trustworthiness of AI through novel algorithmic approaches and validation methodologies.</p>
+          </div>
+        </div>
+        <div class="pub-item">
+          <div class="pub-year">2025</div>
+          <div>
+            <p class="pub-title">Energy Technology and Decision Making Research Initiative</p>
+            <p class="pub-authors">Alliance for a Sustainable Future &nbsp;·&nbsp; Principal Investigator</p>
+            <p class="pub-venue">May 2025 – Present &nbsp;·&nbsp; Investigating intersection of energy technologies and decision-making frameworks for sustainable resource utilization.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- PAGE: TEACHING                                                -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section id="teaching" class="page">
+    <div class="section-inner">
+      <h2 class="section-title">Teaching</h2>
+      <p class="section-sub">Graduate-level data science courses with a focus on theory, implementation, and real-world application.</p>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-comments"></i></div>
+          <h3>DATS 6312 — Natural Language Processing</h3>
+          <p>Encoder and decoder language models, transformers, BERT variants, fine-tuning strategies, and NLP pipelines for real-world applications.</p>
+          <div class="card-tags"><span class="tag">NLP</span><span class="tag">Transformers</span><span class="tag">LLMs</span></div>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-cogs"></i></div>
+          <h3>DATS 6202 — Machine Learning</h3>
+          <p>Supervised and unsupervised learning, regression, classification, ensemble methods, and model evaluation and selection.</p>
+          <div class="card-tags"><span class="tag">Scikit-learn</span><span class="tag">Supervised</span><span class="tag">Unsupervised</span></div>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-brain"></i></div>
+          <h3>DATS 6203 — Deep Learning</h3>
+          <p>Neural network architectures — MLP, CNN, RNN, LSTM, GRU, Transformers — with hands-on GPU training using TensorFlow and PyTorch.</p>
+          <div class="card-tags"><span class="tag">PyTorch</span><span class="tag">TensorFlow</span><span class="tag">GPU</span></div>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-database"></i></div>
+          <h3>DATS 6103 — Data Mining</h3>
+          <p>Knowledge discovery, pattern recognition, clustering, association rules, and data preprocessing at scale.</p>
+          <div class="card-tags"><span class="tag">Clustering</span><span class="tag">Patterns</span><span class="tag">Python</span></div>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-chart-bar"></i></div>
+          <h3>DATS 6401 — Data Visualization</h3>
+          <p>Visual communication of data insights using Python libraries and interactive dashboards for exploratory analysis.</p>
+          <div class="card-tags"><span class="tag">Matplotlib</span><span class="tag">Plotly</span><span class="tag">Dashboards</span></div>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-cloud"></i></div>
+          <h3>DATS 6450 — Cloud Computing</h3>
+          <p>Cloud infrastructure for data science — GCP, AWS, and Azure — including distributed computing and big data processing frameworks.</p>
+          <div class="card-tags"><span class="tag">GCP</span><span class="tag">AWS</span><span class="tag">Azure</span></div>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-project-diagram"></i></div>
+          <h3>DATS 6501 — Data Science Capstone</h3>
+          <p>End-to-end applied data science projects integrating machine learning, data engineering, and communication skills.</p>
+          <div class="card-tags"><span class="tag">Applied DS</span><span class="tag">Mentorship</span><span class="tag">Research</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- PAGE: PUBLICATIONS  (data-driven from data/publications.json) -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section id="publications" class="page">
+    <div class="section-inner">
+      <h2 class="section-title">Publications</h2>
+      <p class="section-sub">Peer-reviewed journal articles, conference papers, and preprints.</p>
+
+      <div class="scholar-cta">
+        <div class="scholar-cta-icon"><i class="fas fa-graduation-cap"></i></div>
+        <h3>Full Publication List on Google Scholar</h3>
+        <p>For a complete, always up-to-date list of publications with citation counts and full metrics, visit my Google Scholar profile.</p>
+        <a href="https://scholar.google.com/citations?user=HVfUixQAAAAJ&hl=en" target="_blank" class="btn btn-primary">
+          <i class="fas fa-graduation-cap"></i> Open Google Scholar Profile
+        </a>
+      </div>
+
+      <!-- Stats — populated by JS from publications.json metrics field -->
+      <div class="stats-row" id="pub-stats">
+        <div class="stat-card"><div class="stat-number">336+</div><div class="stat-label">Total Citations</div></div>
+        <div class="stat-card"><div class="stat-number">8</div><div class="stat-label">h-index</div></div>
+        <div class="stat-card"><div class="stat-number">7</div><div class="stat-label">i10-index</div></div>
+        <div class="stat-card"><div class="stat-number">26</div><div class="stat-label">Publications</div></div>
+      </div>
+
+      <!-- Highlighted papers — populated by JS (highlight: true in JSON) -->
+      <h3 class="subsection-title">Most Cited Works</h3>
+      <div class="cards" id="pub-highlights-container">
+        <div class="pub-loading"><i class="fas fa-spinner fa-spin"></i> Loading…</div>
+      </div>
+
+      <!-- Full list — populated by JS from publications.json papers array -->
+      <h3 class="subsection-title" style="margin-top:3rem;">All Publications</h3>
+      <p style="color:var(--slate);font-size:.875rem;margin-bottom:1rem;">
+        Sorted newest first. To add a paper, edit <code>data/publications.json</code> and push to GitHub.
+      </p>
+      <div id="pub-list-container">
+        <div class="pub-loading"><i class="fas fa-spinner fa-spin"></i> Loading publications…</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- PAGE: PROJECTS                                                -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section id="projects" class="page">
+    <div class="section-inner">
+      <h2 class="section-title">Selected Projects</h2>
+      <p class="section-sub">Research and applied projects spanning AI, healthcare, finance, and engineering.</p>
+      <div class="cards">
+
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-robot"></i></div>
+          <h3>Large Language Modeling — Multi-Agent Systems</h3>
+          <p>Ongoing research on Natural Language Generation (NLG) and Natural Language Understanding (NLU) using multi-agent architectures and state-of-the-art LLMs including LLAMA 2, Dolly, and QLoRA fine-tuning methods.</p>
+          <div class="card-tags"><span class="tag">Current</span><span class="tag">LLMs</span><span class="tag">Multi-Agent</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-microphone"></i></div>
+          <h3>Automatic Speech Scoring</h3>
+          <p>An automated speech scoring engine that classifies audio files using transcription and language models in series. Transcriber and language models are applied in a pipeline to assess speech quality. Applicable to education and the music industry.</p>
+          <div class="card-tags"><span class="tag">Speech AI</span><span class="tag">NLP</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+          <h3>Predicting S&amp;P 500 with Recurrent Neural Networks</h3>
+          <p>Developed a NARX (Nonlinear Auto Regressive with Exogenous inputs) model for S&amp;P 500 prediction. Efficient RNN training methods based on novel error surface analysis were used. Results compared against classical ARMA and ARIMA baselines.</p>
+          <div class="card-tags"><span class="tag">Finance AI</span><span class="tag">NARX</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-heartbeat"></i></div>
+          <h3>Intracranial Hemorrhage Detection</h3>
+          <p>Processed over one million CAT scan images from raw DICOM files to detect and classify intracranial hemorrhage and bleeding types. Used pre-trained DenseNet, ResNet, and ImageNet architectures.</p>
+          <div class="card-tags"><span class="tag">Medical AI</span><span class="tag">CNN</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-flask"></i></div>
+          <h3>Take-Home STEM Labs (THL)</h3>
+          <p>Developed a curated repository of take-home laboratory experiences for undergraduate STEM courses, enabling remote access where lab experiences were previously impractical. Materials cost less than a textbook and are available online.</p>
+          <div class="card-tags"><span class="tag">Education</span><span class="tag">STEM</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-cog"></i></div>
+          <h3>Neural Network Observer for Elastic Drive Systems</h3>
+          <p>Developed a Diagonal Recurrent Neural Network (DRNN) observer combined with elastic drive system dynamics to identify nonlinear friction characteristics (Coulomb and viscous friction torques). Significantly outperforms traditional linear observers.</p>
+          <div class="card-tags"><span class="tag">Control Systems</span><span class="tag">RNN</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-car"></i></div>
+          <h3>Autonomous Ground Vehicle — Fuzzy Logic Navigation</h3>
+          <p>Designed and built an autonomous ground vehicle from scratch, programmed with an Arduino embedded system. Used fuzzy logic algorithms for obstacle avoidance and path following in real-time environments.</p>
+          <div class="card-tags"><span class="tag">Robotics</span><span class="tag">Fuzzy Logic</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-sliders-h"></i></div>
+          <h3>Neural Model Reference Adaptive Control</h3>
+          <p>Novel training methods for RNNs applied to system identification. A novelty sampling method using self-organizing maps collects data wisely; clustering detects extrapolation. Applied to magnetic levitation system control (simulated and experimental).</p>
+          <div class="card-tags"><span class="tag">Adaptive Control</span><span class="tag">RNN</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- PAGE: OPEN SOURCE OVERVIEW                                    -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section id="open-source" class="page">
+    <div class="section-inner">
+      <h2 class="section-title">Open Source Packages</h2>
+      <p class="section-sub">Python packages published on PyPI for the data science and deep learning community.</p>
+      <div class="cards">
+
+        <div class="card pkg-card">
+          <div class="card-icon" style="background:linear-gradient(135deg,#3776ab,#ffd43b)"><i class="fab fa-python"></i></div>
+          <h3>Time Series Toolbox</h3>
+          <p>A comprehensive Python toolbox for time series analysis and forecasting, covering classical statistical models (ARMA, ARIMA) and modern deep learning architectures (LSTM, Transformers).</p>
+          <div class="card-tags"><span class="tag">PyPI</span><span class="tag">Time Series</span><span class="tag">Forecasting</span></div>
+          <div class="pkg-actions">
+            <a href="https://pypi.org/project/timeseries-toolbox/" target="_blank" class="btn btn-primary btn-sm"><i class="fab fa-python"></i> PyPI</a>
+            <a href="https://amir-jafari.github.io/TimeSeries/" target="_blank" class="btn btn-outline btn-sm"><i class="fas fa-book"></i> Docs</a>
+            <button class="btn btn-outline btn-sm" onclick="navTo('pkg-timeseries')"><i class="fas fa-info-circle"></i> Details</button>
+          </div>
+        </div>
+
+        <div class="card pkg-card">
+          <div class="card-icon" style="background:linear-gradient(135deg,#3776ab,#ffd43b)"><i class="fab fa-python"></i></div>
+          <h3>NN Design Demos</h3>
+          <p>Python demonstrations paired with the <em>Neural Network Design</em> and <em>Neural Network Design: Deep Learning</em> textbooks. Interactive visualizations of neural network concepts.</p>
+          <div class="card-tags"><span class="tag">PyPI</span><span class="tag">Neural Networks</span><span class="tag">Education</span></div>
+          <div class="pkg-actions">
+            <a href="https://pypi.org/project/nndesigndemos/" target="_blank" class="btn btn-primary btn-sm"><i class="fab fa-python"></i> PyPI</a>
+            <button class="btn btn-outline btn-sm" onclick="navTo('pkg-nndesign')"><i class="fas fa-info-circle"></i> Details</button>
+          </div>
+        </div>
+
+        <div class="card pkg-card">
+          <div class="card-icon" style="background:linear-gradient(135deg,#3776ab,#ffd43b)"><i class="fab fa-python"></i></div>
+          <h3>NNSOM</h3>
+          <p>A novel clustering neural network package implementing Self-Organizing Maps (SOM) and advanced unsupervised learning methods for machine learning and deep learning projects.</p>
+          <div class="card-tags"><span class="tag">PyPI</span><span class="tag">Clustering</span><span class="tag">SOM</span></div>
+          <div class="pkg-actions">
+            <a href="https://pypi.org/project/NNSOM/" target="_blank" class="btn btn-primary btn-sm"><i class="fab fa-python"></i> PyPI</a>
+            <a href="https://amir-jafari.github.io/SOM/" target="_blank" class="btn btn-outline btn-sm"><i class="fas fa-book"></i> Docs</a>
+            <button class="btn btn-outline btn-sm" onclick="navTo('pkg-nnsom')"><i class="fas fa-info-circle"></i> Details</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="book-block">
+        <h3>Book: Neural Network Design — Deep Learning</h3>
+        <p>An open-source textbook covering neural network design principles and deep learning methodologies. Features solved problems and practical exercises. Companion package available on PyPI as <code>nndesigndemos</code>.</p>
+        <a href="https://github.com/amir-jafari/NNDesignDeepLearning" target="_blank" class="btn btn-outline btn-sm">
+          <i class="fab fa-github"></i> GitHub Repository
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- PAGE: PKG — TIME SERIES TOOLBOX                               -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section id="pkg-timeseries" class="page">
+    <div class="section-inner">
+      <button class="back-btn" onclick="navTo('open-source')"><i class="fas fa-arrow-left"></i> Back to Open Source</button>
+      <div class="pkg-hero">
+        <div class="pkg-hero-icon" style="background:linear-gradient(135deg,#3776ab,#ffd43b)"><i class="fab fa-python"></i></div>
+        <div>
+          <h2 class="section-title" style="margin-bottom:.2rem;">Time Series Toolbox</h2>
+          <p class="pkg-pypi-name">timeseries-toolbox &nbsp;·&nbsp; Python Package</p>
+        </div>
+      </div>
+      <p class="pkg-desc">A comprehensive Python toolbox for time series analysis and forecasting. Covers classical statistical models (ARMA, ARIMA, Box-Jenkins) and modern deep learning architectures (LSTM, GRU, Transformers, NARX). Designed for researchers and practitioners working on sequential data problems in finance, engineering, and science.</p>
+      <div class="pkg-action-row">
+        <a href="https://pypi.org/project/timeseries-toolbox/" target="_blank" class="btn btn-primary"><i class="fab fa-python"></i> View on PyPI</a>
+        <a href="https://amir-jafari.github.io/TimeSeries/" target="_blank" class="btn btn-outline"><i class="fas fa-book"></i> Documentation</a>
+      </div>
+      <div class="pkg-install">
+        <span class="install-label">Install</span>
+        <code>pip install timeseries-toolbox</code>
+      </div>
+      <div class="cards" style="margin-top:2.5rem;">
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+          <h3>Classical Statistical Models</h3>
+          <p>ARMA, ARX, ARIMA, and Box-Jenkins methods for classical statistical time series analysis and forecasting.</p>
+          <div class="card-tags"><span class="tag">ARIMA</span><span class="tag">ARMA</span><span class="tag">Box-Jenkins</span></div>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-brain"></i></div>
+          <h3>Deep Learning Models</h3>
+          <p>LSTM, GRU, and Transformer-based architectures for sequence modeling and multi-step ahead forecasting.</p>
+          <div class="card-tags"><span class="tag">LSTM</span><span class="tag">GRU</span><span class="tag">Transformers</span></div>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-network-wired"></i></div>
+          <h3>Recurrent Neural Networks</h3>
+          <p>NARX, NAR, Focused Time Delay, and Elman network implementations for nonlinear time series identification.</p>
+          <div class="card-tags"><span class="tag">NARX</span><span class="tag">NAR</span><span class="tag">Elman</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- PAGE: PKG — NN DESIGN DEMOS                                   -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section id="pkg-nndesign" class="page">
+    <div class="section-inner">
+      <button class="back-btn" onclick="navTo('open-source')"><i class="fas fa-arrow-left"></i> Back to Open Source</button>
+      <div class="pkg-hero">
+        <div class="pkg-hero-icon" style="background:linear-gradient(135deg,#3776ab,#ffd43b)"><i class="fab fa-python"></i></div>
+        <div>
+          <h2 class="section-title" style="margin-bottom:.2rem;">NN Design Demos</h2>
+          <p class="pkg-pypi-name">nndesigndemos &nbsp;·&nbsp; Python Package</p>
+        </div>
+      </div>
+      <p class="pkg-desc">A collection of Python demonstrations paired with the <em>Neural Network Design</em> and <em>Neural Network Design: Deep Learning</em> textbooks by Hagan, Demuth, Beale, and Jafari. Provides interactive visualizations and hands-on exercises to reinforce theoretical concepts. All classic MATLAB-based textbook demos have been reimplemented in Python.</p>
+      <div class="pkg-action-row">
+        <a href="https://pypi.org/project/nndesigndemos/" target="_blank" class="btn btn-primary"><i class="fab fa-python"></i> View on PyPI</a>
+        <a href="https://github.com/amir-jafari/NNDesignDeepLearning" target="_blank" class="btn btn-outline"><i class="fab fa-github"></i> GitHub Repo</a>
+      </div>
+      <div class="pkg-install">
+        <span class="install-label">Install</span>
+        <code>pip install nndesigndemos</code>
+      </div>
+      <div class="cards" style="margin-top:2.5rem;">
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-book-open"></i></div>
+          <h3>Textbook Companion</h3>
+          <p>Interactive demos paired chapter-by-chapter with the Neural Network Design textbooks for structured, hands-on learning.</p>
+          <div class="card-tags"><span class="tag">Textbook</span><span class="tag">Interactive</span></div>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-brain"></i></div>
+          <h3>Core NN Concepts</h3>
+          <p>Visualizations covering perceptrons, backpropagation, training algorithms, recurrent networks, and deep learning architectures.</p>
+          <div class="card-tags"><span class="tag">MLP</span><span class="tag">Backprop</span><span class="tag">Training</span></div>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fab fa-python"></i></div>
+          <h3>Python Implementation</h3>
+          <p>All classic MATLAB-based textbook demos reimplemented in Python for global accessibility and open-source contribution.</p>
+          <div class="card-tags"><span class="tag">Python</span><span class="tag">Open Source</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- PAGE: PKG — NNSOM                                             -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section id="pkg-nnsom" class="page">
+    <div class="section-inner">
+      <button class="back-btn" onclick="navTo('open-source')"><i class="fas fa-arrow-left"></i> Back to Open Source</button>
+      <div class="pkg-hero">
+        <div class="pkg-hero-icon" style="background:linear-gradient(135deg,#3776ab,#ffd43b)"><i class="fab fa-python"></i></div>
+        <div>
+          <h2 class="section-title" style="margin-bottom:.2rem;">NNSOM</h2>
+          <p class="pkg-pypi-name">NNSOM &nbsp;·&nbsp; Python Package</p>
+        </div>
+      </div>
+      <p class="pkg-desc">A novel clustering neural network package for machine learning and deep learning projects. Implements Self-Organizing Maps (SOM) and advanced unsupervised learning methods designed to handle high-dimensional data with interpretable cluster representations. Suitable for exploratory data analysis, anomaly detection, and visualization.</p>
+      <div class="pkg-action-row">
+        <a href="https://pypi.org/project/NNSOM/" target="_blank" class="btn btn-primary"><i class="fab fa-python"></i> View on PyPI</a>
+        <a href="https://amir-jafari.github.io/SOM/" target="_blank" class="btn btn-outline"><i class="fas fa-book"></i> Documentation</a>
+      </div>
+      <div class="pkg-install">
+        <span class="install-label">Install</span>
+        <code>pip install NNSOM</code>
+      </div>
+      <div class="cards" style="margin-top:2.5rem;">
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-project-diagram"></i></div>
+          <h3>Self-Organizing Maps</h3>
+          <p>Full SOM implementation with competitive learning, neighborhood functions, and topographic map visualization for high-dimensional data.</p>
+          <div class="card-tags"><span class="tag">SOM</span><span class="tag">Unsupervised</span></div>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-layer-group"></i></div>
+          <h3>Advanced Clustering</h3>
+          <p>Novel clustering methods with support for sequential and high-dimensional data, going beyond traditional K-Means approaches.</p>
+          <div class="card-tags"><span class="tag">Clustering</span><span class="tag">K-Means</span></div>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-chart-pie"></i></div>
+          <h3>Visualization Tools</h3>
+          <p>Built-in tools for visualizing cluster maps, U-matrices, distance matrices, and data distributions in trained SOMs.</p>
+          <div class="card-tags"><span class="tag">Visualization</span><span class="tag">U-Matrix</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ────────────────────────────────────────────────────── -->
+  <footer>
+    <p>© 2026 Amir Jafari, Ph.D. — Data Scientist &amp; AI Researcher</p>
+    <p class="footer-sub">
+      <a href="https://github.com/amir-jafari" target="_blank">GitHub</a>
+      &nbsp;·&nbsp;
+      <a href="https://scholar.google.com/citations?user=HVfUixQAAAAJ&hl=en" target="_blank">Google Scholar</a>
+      &nbsp;·&nbsp;
+      Built with HTML &amp; CSS · Hosted on GitHub Pages
+    </p>
+  </footer>
+
+  <script src="data/publications.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

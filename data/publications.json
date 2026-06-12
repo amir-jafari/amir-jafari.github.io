@@ -1,0 +1,269 @@
+{
+  "metrics": {
+    "citations": 336,
+    "h_index": 8,
+    "i10_index": 7
+  },
+  "papers": [
+    {
+      "year": 2026,
+      "title": "Reimagining influence detection in social networks via graph neural networks",
+      "authors": "H.R. Kolan, S. Kumari, A.H. Jafari",
+      "venue": "Neural Computing and Applications, vol. 38, no. 8",
+      "doi": "https://doi.org/10.1007/s00521-026-11998-0",
+      "type": "journal",
+      "citations": null,
+      "highlight": false
+    },
+    {
+      "year": 2026,
+      "title": "Optimizing information retrieval: a hybrid model leveraging MAR and RAPTOR frameworks",
+      "authors": "T. Abdygulov, M. Daxini, A.H. Jafari",
+      "venue": "Neural Computing and Applications, vol. 38, no. 7",
+      "doi": "https://doi.org/10.1007/s00521-025-11814-1",
+      "type": "journal",
+      "citations": null,
+      "highlight": false
+    },
+    {
+      "year": 2026,
+      "title": "Improved multi-agent knowledge sharing system using knowledge graphs for news bias detection and fact-checking",
+      "authors": "M. Fagbenro, C. Washer, P. Chella, A. Jafari",
+      "venue": "Neural Computing and Applications, vol. 38, no. 6",
+      "doi": "https://doi.org/10.1007/s00521-026-11944-0",
+      "type": "journal",
+      "citations": null,
+      "highlight": false
+    },
+    {
+      "year": 2026,
+      "title": "Predicting postoperative complications in laparoscopic general surgery using machine and deep learning: a classification approach",
+      "authors": "T. Wallett, A. Jafari, X. Qian, T. Abdygulov, X. Qi, N. Nourshamsi, J. Davis, G. Puneet",
+      "venue": "Neural Computing and Applications, vol. 38, no. 1",
+      "doi": "https://doi.org/10.1007/s00521-025-11813-2",
+      "type": "journal",
+      "citations": null,
+      "highlight": false
+    },
+    {
+      "year": 2026,
+      "title": "An end-to-end multi-agent AI system for personal finance: synthetic data generation, budget optimization, and investment advisory",
+      "authors": "S.S. Pancholi, A. Jaglan, N. Makadia, Y. Doshi, A. Jafari",
+      "venue": "Neural Computing and Applications, vol. 38, no. 1",
+      "doi": "https://doi.org/10.1007/s00521-025-11749-7",
+      "type": "journal",
+      "citations": null,
+      "highlight": false
+    },
+    {
+      "year": 2025,
+      "title": "FolkRAG: a retrieval-augmented generation system for cultural heritage materials",
+      "authors": "P. Kelly, J. Schild, A. Jafari",
+      "venue": "Neural Computing and Applications",
+      "doi": "https://doi.org/10.1007/s00521-025-11455-4",
+      "type": "journal",
+      "citations": null,
+      "highlight": false
+    },
+    {
+      "year": 2025,
+      "title": "Advancing temporal forecasting: a comparative analysis of conventional paradigms and deep learning architectures on publicly accessible datasets",
+      "authors": "L. Gao, R. Jafari, A.H. Jafari",
+      "venue": "Neural Computing and Applications",
+      "doi": "https://doi.org/10.1007/s00521-025-11324-0",
+      "type": "journal",
+      "citations": null,
+      "highlight": false
+    },
+    {
+      "year": 2025,
+      "title": "Nonlinear adaptive control with high-gain observer",
+      "authors": "R. Jafari, A.H. Jafari",
+      "venue": "2025 International Conference on Control, Automation and Diagnosis (ICCAD)",
+      "doi": "https://doi.org/10.1109/ICCAD64771.2025.11099342",
+      "type": "conference",
+      "citations": null,
+      "highlight": false
+    },
+    {
+      "year": 2024,
+      "title": "A benchmark for graph-based dynamic recommendation systems",
+      "authors": "T. Wallett, A. Jafari",
+      "venue": "Neural Computing and Applications",
+      "doi": "https://doi.org/10.1007/s00521-024-10425-6",
+      "type": "journal",
+      "citations": null,
+      "highlight": false
+    },
+    {
+      "year": 2024,
+      "title": "Leveraging graph-based learning for credit card fraud detection: a comparative study of classical, deep learning and graph-based approaches",
+      "authors": "S. Harish, C. Lakhanpal, A.H. Jafari",
+      "venue": "Neural Computing and Applications",
+      "doi": "https://doi.org/10.1007/s00521-024-10397-7",
+      "type": "journal",
+      "citations": null,
+      "highlight": false
+    },
+    {
+      "year": 2024,
+      "title": "Predicting blood transfusions for coronary artery bypass graft patients using deep neural networks and synthetic data",
+      "authors": "H.-T. Tsai, J. Wu, P. Gupta, E.R. Heinz, A. Jafari",
+      "venue": "Neural Computing and Applications",
+      "doi": "https://doi.org/10.1007/s00521-024-10309-9",
+      "type": "journal",
+      "citations": null,
+      "highlight": false
+    },
+    {
+      "year": 2024,
+      "title": "Multimodal fusion: advancing medical visual question-answering",
+      "authors": "A. Mudgal, U. Kush, A. Kumar, A. Jafari",
+      "venue": "Neural Computing and Applications",
+      "doi": "https://doi.org/10.1007/s00521-024-10318-8",
+      "type": "journal",
+      "citations": null,
+      "highlight": false
+    },
+    {
+      "year": 2024,
+      "title": "Enhanced precision in robot arm positioning: a nonlinear damping approach for flexible joint manipulators",
+      "authors": "A.H. Jafari, R. Dhaouadi, R. Jafari",
+      "venue": "IET Control Theory & Applications, vol. 18, no. 15, pp. 1968–1976",
+      "doi": "https://doi.org/10.1049/cth2.12707",
+      "type": "journal",
+      "citations": null,
+      "highlight": false
+    },
+    {
+      "year": 2024,
+      "title": "Towards a scalable and transferable approach to map deprived areas using Sentinel-2 images and machine learning",
+      "authors": "M. Owusu, A. Nair, A. Jafari, D. Thomson, M. Kuffer, R. Engstrom",
+      "venue": "Computers, Environment and Urban Systems, vol. 109",
+      "doi": "https://doi.org/10.1016/j.compenvurbsys.2024.102075",
+      "type": "journal",
+      "citations": 20,
+      "highlight": true
+    },
+    {
+      "year": 2024,
+      "title": "Large area mapping of urban deprivation from Sentinel-2 and Google Open Buildings using deep learning",
+      "authors": "R. Engstrom, M. Owusu, M. Hanna, A. Jafari, D.R. Thomson, M. Kuffer",
+      "venue": "IGARSS 2024 — IEEE International Geoscience and Remote Sensing Symposium",
+      "doi": "https://doi.org/10.1109/IGARSS53475.2024.10640635",
+      "type": "conference",
+      "citations": null,
+      "highlight": false
+    },
+    {
+      "year": 2024,
+      "title": "Speech recognition using ARMA model and Levenberg-Marquardt algorithm",
+      "authors": "R. Jafari, A.H. Jafari",
+      "venue": "Intelligent Systems and Applications, Springer",
+      "doi": "https://doi.org/10.1007/978-3-031-66336-9_25",
+      "type": "conference",
+      "citations": null,
+      "highlight": false
+    },
+    {
+      "year": 2023,
+      "title": "Enhanced balancing GAN: minority-class image generation",
+      "authors": "G. Huang, A.H. Jafari",
+      "venue": "Neural Computing and Applications, vol. 35, no. 7, pp. 5145–5154",
+      "doi": "https://doi.org/10.1007/s00521-021-06163-8",
+      "type": "journal",
+      "citations": 137,
+      "highlight": true
+    },
+    {
+      "year": 2022,
+      "title": "Machine learning based classification of micro-Doppler radar responses of hands and harmonically-tagged held objects",
+      "authors": "N. Nourshamsi, A. Jafari, J. Nanzer, et al.",
+      "venue": "TechRxiv (preprint)",
+      "doi": "https://doi.org/10.36227/techrxiv.21548109.v2",
+      "type": "preprint",
+      "citations": null,
+      "highlight": false
+    },
+    {
+      "year": 2022,
+      "title": "A hybrid model to estimate mean of maximum fields inside small metal enclosures using deep neural networks and maximum likelihood estimator",
+      "authors": "N. Nourshamsi, A.H. Jafari, P.U. Rodríguez, J.A. Nanzer",
+      "venue": "IEEE Letters on Electromagnetic Compatibility Practice and Applications, vol. 4, no. 2, pp. 31–35",
+      "doi": "https://doi.org/10.1109/LEMCPA.2022.3162068",
+      "type": "journal",
+      "citations": null,
+      "highlight": false
+    },
+    {
+      "year": 2021,
+      "title": "Stock price prediction using Generative Adversarial Networks",
+      "authors": "H. Lin, C. Chen, G. Huang, A. Jafari",
+      "venue": "Journal of Computer Science, vol. 17, no. 3, pp. 188–196",
+      "doi": "https://doi.org/10.3844/jcssp.2021.188.196",
+      "type": "journal",
+      "citations": 67,
+      "highlight": true
+    },
+    {
+      "year": 2020,
+      "title": "Estimating mean of maximum fields inside reverberation chambers using deep neural networks",
+      "authors": "N. Nourshamsi, P.U. Rodríguez, A.H. Jafari, C.F. Bunting",
+      "venue": "IEEE Transactions on Electromagnetic Compatibility, vol. 62, no. 6, pp. 2342–2348",
+      "doi": "https://doi.org/10.1109/TEMC.2020.2975131",
+      "type": "journal",
+      "citations": null,
+      "highlight": false
+    },
+    {
+      "year": 2018,
+      "title": "Introduction to the special issue on deep learning for biomedical and healthcare applications",
+      "authors": "C. Tong, L. Medsker, L. Cheng, A. Jafari, X. Wang",
+      "venue": "Neural Computing and Applications, vol. 30, no. 7, pp. 2015–2016",
+      "doi": "https://doi.org/10.1007/s00521-018-3694-8",
+      "type": "journal",
+      "citations": null,
+      "highlight": false
+    },
+    {
+      "year": 2018,
+      "title": "Application of new training methods for neural model reference control",
+      "authors": "A.H. Jafari, M.T. Hagan",
+      "venue": "Engineering Applications of Artificial Intelligence, vol. 74, pp. 312–321",
+      "doi": "https://www.sciencedirect.com/science/article/pii/S0952197618301490",
+      "type": "journal",
+      "citations": 21,
+      "highlight": true
+    },
+    {
+      "year": 2015,
+      "title": "Enhanced recurrent network training",
+      "authors": "A.H. Jafari, M.T. Hagan",
+      "venue": "2015 International Joint Conference on Neural Networks (IJCNN)",
+      "doi": "https://doi.org/10.1109/IJCNN.2015.7280405",
+      "type": "conference",
+      "citations": null,
+      "highlight": false
+    },
+    {
+      "year": 2013,
+      "title": "Nonlinear friction estimation in elastic drive systems using a dynamic neural network-based observer",
+      "authors": "A.H. Jafari, R. Dhaouadi, A. Jhemi",
+      "venue": "Journal of Advanced Computational Intelligence and Intelligent Informatics, vol. 17, no. 4, pp. 637–646",
+      "doi": "https://doi.org/10.20965/jaciii.2013.p0637",
+      "type": "journal",
+      "citations": null,
+      "highlight": false
+    },
+    {
+      "year": 2011,
+      "title": "A sequential approach for fault detection and identification of vehicles' ultrasonic parking sensors",
+      "authors": "M.F. Abdel-Hafez, A.A. Nabulsi, A.H. Jafari, et al.",
+      "venue": "2011 Fourth International Conference on Modeling, Simulation and Applied Optimization (ICMSAO)",
+      "doi": "https://doi.org/10.1109/ICMSAO.2011.5775498",
+      "type": "conference",
+      "citations": null,
+      "highlight": false
+    }
+  ]
+}
