@@ -24,9 +24,21 @@ def fetch_scholar_papers():
         print("ERROR: 'scholarly' not installed. Run: pip install scholarly", file=sys.stderr)
         sys.exit(1)
 
+    import signal
+
+    def _timeout_handler(signum, frame):
+        raise TimeoutError("Google Scholar request timed out (likely blocked). Use Option B to add papers manually.")
+
+    signal.signal(signal.SIGALRM, _timeout_handler)
+
     print(f"Fetching publications for user {SCHOLAR_USER_ID} …")
-    author = scholarly.search_author_id(SCHOLAR_USER_ID)
-    author = scholarly.fill(author, sections=["publications", "indices"])
+
+    signal.alarm(60)  # 60-second timeout for author lookup
+    try:
+        author = scholarly.search_author_id(SCHOLAR_USER_ID)
+        author = scholarly.fill(author, sections=["publications", "indices"])
+    finally:
+        signal.alarm(0)
 
     metrics = {
         "citations": author.get("citedby", 0),
@@ -37,7 +49,9 @@ def fetch_scholar_papers():
     papers = []
     for pub in author.get("publications", []):
         try:
+            signal.alarm(30)  # 30-second timeout per paper
             filled = scholarly.fill(pub)
+            signal.alarm(0)
             bib = filled.get("bib", {})
             papers.append({
                 "year": int(bib.get("pub_year", 0)) if bib.get("pub_year") else None,
@@ -49,8 +63,12 @@ def fetch_scholar_papers():
                 "citations": filled.get("num_citations", None),
                 "highlight": False,
             })
-            time.sleep(1)  # be polite to Scholar
+            time.sleep(1)
+        except TimeoutError:
+            signal.alarm(0)
+            print(f"  Skipping (timeout): {pub.get('bib',{}).get('title','')}", file=sys.stderr)
         except Exception as exc:
+            signal.alarm(0)
             print(f"  Warning: could not fill pub '{pub.get('bib',{}).get('title','')}': {exc}", file=sys.stderr)
 
     papers.sort(key=lambda p: p.get("year") or 0, reverse=True)
