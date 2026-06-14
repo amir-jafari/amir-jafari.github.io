@@ -27,6 +27,7 @@
         <li><a href="#teaching"     data-page="teaching">Teaching</a></li>
         <li><a href="#publications" data-page="publications">Publications</a></li>
         <li><a href="#projects"     data-page="projects">Projects</a></li>
+        <li><a href="#books"        data-page="books">Books</a></li>
         <li class="has-dropdown">
           <a href="#open-source" data-page="open-source" class="dropdown-trigger">
             Open Source <i class="fas fa-chevron-down dropdown-caret"></i>
@@ -456,6 +457,130 @@
         </div>
 
       </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- PAGE: BOOKS                                                   -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section id="books" class="page">
+    <div class="section-inner">
+      <h2 class="section-title">Books</h2>
+      <p class="section-sub">Open-source textbooks on neural network design — freely available online.</p>
+
+      <div class="books-grid">
+
+        <!-- ── Book 1: Neural Network Design ──────────────────────── -->
+        <div class="book-card">
+          <div class="book-cover-wrap">
+            <img
+              src="https://raw.githubusercontent.com/NNDesignDeepLearning/NNDesignDeepLearning/master/NNDesign/FrontCoverSmallNND.jpg"
+              alt="Neural Network Design book cover"
+              class="book-cover"
+            />
+          </div>
+          <div class="book-info">
+            <span class="book-edition-badge">Classic Edition</span>
+            <h3 class="book-title">Neural Network Design</h3>
+            <p class="book-authors">
+              <i class="fas fa-user-edit"></i>
+              Martin T. Hagan, Howard B. Demuth, Mark H. Beale &amp; Orlando De Jesús
+            </p>
+            <p class="book-desc">
+              A foundational survey of neural network architectures and learning rules with emphasis on
+              mathematical analysis and practical applications. Covers backpropagation,
+              Levenberg-Marquardt training, associative and competitive networks, radial-basis
+              functions, self-organizing maps, and real-world case studies.
+            </p>
+            <div class="book-features">
+              <span class="book-feature"><i class="fas fa-check-circle"></i> 22 Chapters</span>
+              <span class="book-feature"><i class="fas fa-check-circle"></i> 5 Case Studies</span>
+              <span class="book-feature"><i class="fas fa-check-circle"></i> Free PDF</span>
+              <span class="book-feature"><i class="fas fa-check-circle"></i> Python Demos</span>
+            </div>
+            <div class="book-actions">
+              <a href="https://github.com/NNDesignDeepLearning/NNDesignDeepLearning/tree/master/NNDesign"
+                 target="_blank" class="btn btn-primary btn-sm">
+                <i class="fab fa-github"></i> GitHub
+              </a>
+              <a href="https://raw.githubusercontent.com/NNDesignDeepLearning/NNDesignDeepLearning/master/NNDesign/NNDesignFull.pdf"
+                 target="_blank" class="btn btn-outline btn-sm">
+                <i class="fas fa-file-pdf"></i> Download PDF
+              </a>
+              <a href="https://pypi.org/project/nndesigndemos/" target="_blank" class="btn btn-outline btn-sm">
+                <i class="fab fa-python"></i> PyPI Demos
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Book 2: Neural Network Design: Deep Learning ────────── -->
+        <div class="book-card">
+          <div class="book-cover-wrap">
+            <img
+              src="https://raw.githubusercontent.com/NNDesignDeepLearning/NNDesignDeepLearning/master/NNDesignDeepLearning/FrontCoverSmall.jpg"
+              alt="Neural Network Design: Deep Learning book cover"
+              class="book-cover"
+            />
+          </div>
+          <div class="book-info">
+            <span class="book-edition-badge book-edition-badge--dl">Deep Learning Edition</span>
+            <h3 class="book-title">Neural Network Design: Deep Learning</h3>
+            <p class="book-authors">
+              <i class="fas fa-user-edit"></i>
+              Martin T. Hagan &amp; Amir Jafari
+            </p>
+            <p class="book-desc">
+              A follow-up text focused on deep neural networks, explaining why deep architectures
+              outperform shallow ones. Covers convolutional networks, recurrent and sequence models,
+              attention mechanisms and Transformers, along with modern training techniques — Adam,
+              batch normalization, dropout — implemented in TensorFlow and PyTorch.
+            </p>
+            <div class="book-features">
+              <span class="book-feature"><i class="fas fa-check-circle"></i> 13 Chapters</span>
+              <span class="book-feature"><i class="fas fa-check-circle"></i> TensorFlow &amp; PyTorch</span>
+              <span class="book-feature"><i class="fas fa-check-circle"></i> Free PDF</span>
+              <span class="book-feature"><i class="fas fa-check-circle"></i> Python Demos</span>
+            </div>
+            <div class="book-actions">
+              <a href="https://github.com/NNDesignDeepLearning/NNDesignDeepLearning/tree/master/NNDesignDeepLearning"
+                 target="_blank" class="btn btn-primary btn-sm">
+                <i class="fab fa-github"></i> GitHub
+              </a>
+              <a href="https://raw.githubusercontent.com/NNDesignDeepLearning/NNDesignDeepLearning/master/NNDesignDeepLearning/NNDeep_Draft_1_18_26.pdf"
+                 target="_blank" class="btn btn-outline btn-sm">
+                <i class="fas fa-file-pdf"></i> Download PDF
+              </a>
+              <a href="https://pypi.org/project/nndesigndemos/" target="_blank" class="btn btn-outline btn-sm">
+                <i class="fab fa-python"></i> PyPI Demos
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.books-grid -->
+
+      <!-- ── Companion package callout ──────────────────────────────── -->
+      <div class="books-companion">
+        <div class="books-companion-icon">
+          <i class="fab fa-python"></i>
+        </div>
+        <div>
+          <h3>Python Companion Package</h3>
+          <p>Both textbooks are accompanied by <strong>nndesigndemos</strong>, an open-source Python
+             package that reimplements all classic MATLAB demos from the books as interactive
+             visualizations — freely available on PyPI.</p>
+          <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;">
+            <a href="https://pypi.org/project/nndesigndemos/" target="_blank" class="btn btn-primary btn-sm">
+              <i class="fab fa-python"></i> View on PyPI
+            </a>
+            <a href="https://github.com/NNDesignDeepLearning/NNDesignDeepLearning" target="_blank" class="btn btn-outline btn-sm">
+              <i class="fab fa-github"></i> Full Repository
+            </a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
