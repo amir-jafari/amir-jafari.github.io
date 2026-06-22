@@ -607,6 +607,18 @@
           </div>
         </div>
 
+        <div class="card pkg-card">
+          <div class="card-icon" style="background:linear-gradient(135deg,#3776ab,#ffd43b)"><i class="fab fa-python"></i></div>
+          <h3>Time Series EDA</h3>
+          <p>A Python package for comprehensive exploratory data analysis of time series data, providing statistical tests, decomposition tools, and rich visualizations to understand temporal patterns.</p>
+          <div class="card-tags"><span class="tag">PyPI</span><span class="tag">Time Series</span><span class="tag">EDA</span></div>
+          <div class="pkg-actions">
+            <a href="https://pypi.org/project/timeseries-eda/" target="_blank" class="btn btn-primary btn-sm"><i class="fab fa-python"></i> PyPI</a>
+            <a href="https://amir-jafari.github.io/Time-Series-EDA/" target="_blank" class="btn btn-outline btn-sm"><i class="fas fa-book"></i> Docs</a>
+            <button class="btn btn-outline btn-sm" onclick="navTo('pkg-tseda')"><i class="fas fa-info-circle"></i> Details</button>
+          </div>
+        </div>
+
       </div>
 
       <div class="book-block">
@@ -749,6 +761,51 @@
           <h3>Visualization Tools</h3>
           <p>Built-in tools for visualizing cluster maps, U-matrices, distance matrices, and data distributions in trained SOMs.</p>
           <div class="card-tags"><span class="tag">Visualization</span><span class="tag">U-Matrix</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- PAGE: PKG — TIME SERIES EDA                                    -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section id="pkg-tseda" class="page">
+    <div class="section-inner">
+      <button class="back-btn" onclick="navTo('open-source')"><i class="fas fa-arrow-left"></i> Back to Open Source</button>
+      <div class="pkg-hero">
+        <div class="pkg-hero-icon" style="background:linear-gradient(135deg,#3776ab,#ffd43b)"><i class="fab fa-python"></i></div>
+        <div>
+          <h2 class="section-title" style="margin-bottom:.2rem;">Time Series EDA</h2>
+          <p class="pkg-pypi-name">timeseries-eda &nbsp;·&nbsp; Python Package</p>
+        </div>
+      </div>
+      <p class="pkg-desc">A Python package for comprehensive exploratory data analysis of time series data. Provides statistical tests (stationarity, autocorrelation, seasonality), decomposition tools, and rich visualizations to help researchers and practitioners understand the structure and patterns within temporal datasets before modeling.</p>
+      <div class="pkg-action-row">
+        <a href="https://pypi.org/project/timeseries-eda/" target="_blank" class="btn btn-primary"><i class="fab fa-python"></i> View on PyPI</a>
+        <a href="https://amir-jafari.github.io/Time-Series-EDA/" target="_blank" class="btn btn-outline"><i class="fas fa-book"></i> Documentation</a>
+      </div>
+      <div class="pkg-install">
+        <span class="install-label">Install</span>
+        <code>pip install timeseries-eda</code>
+      </div>
+      <div class="cards" style="margin-top:2.5rem;">
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-flask"></i></div>
+          <h3>Statistical Tests</h3>
+          <p>Stationarity tests (ADF, KPSS), autocorrelation analysis (ACF/PACF), and seasonality detection to characterize time series properties.</p>
+          <div class="card-tags"><span class="tag">ADF</span><span class="tag">KPSS</span><span class="tag">ACF/PACF</span></div>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-chart-area"></i></div>
+          <h3>Visualization Suite</h3>
+          <p>Comprehensive plotting tools for time series trends, seasonal patterns, distributions, lag plots, and rolling statistics.</p>
+          <div class="card-tags"><span class="tag">Plots</span><span class="tag">Seasonality</span><span class="tag">Trends</span></div>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-sitemap"></i></div>
+          <h3>Decomposition</h3>
+          <p>Classical and STL decomposition methods to separate trend, seasonality, and residual components from time series data.</p>
+          <div class="card-tags"><span class="tag">STL</span><span class="tag">Decomposition</span><span class="tag">Residuals</span></div>
         </div>
       </div>
     </div>
