@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """
-Fetch publications from Google Scholar and update data/publications.json.
+Fetch publications from Google Scholar and update data/publications.json
+and data/publications.js (the file the website actually loads).
 
 Usage:
     python scripts/update_publications.py
 
 The script merges new papers found on Google Scholar into the existing JSON,
-preserving any manual fields (highlight, notes) already in the file.
+preserving any manual fields (highlight, notes) already in the file,
+then regenerates publications.js from the JSON so the website stays in sync.
 """
 import json
 import os
@@ -14,7 +16,9 @@ import sys
 import time
 
 SCHOLAR_USER_ID = "HVfUixQAAAAJ"
-PUBLICATIONS_JSON = os.path.join(os.path.dirname(__file__), "..", "data", "publications.json")
+_DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "data")
+PUBLICATIONS_JSON = os.path.join(_DATA_DIR, "publications.json")
+PUBLICATIONS_JS   = os.path.join(_DATA_DIR, "publications.js")
 
 
 def fetch_scholar_papers():
@@ -97,6 +101,48 @@ def merge(existing_papers, new_papers):
     return existing_papers
 
 
+def _js_value(v, indent=0):
+    """Render a Python value as JavaScript (unquoted keys, JS literals)."""
+    pad = "  " * indent
+    inner = "  " * (indent + 1)
+    if isinstance(v, dict):
+        pairs = [f"{inner}{k}: {_js_value(val, indent + 1)}" for k, val in v.items()]
+        return "{\n" + ",\n".join(pairs) + "\n" + pad + "}"
+    if isinstance(v, list):
+        items = [f"{inner}{_js_value(item, indent + 1)}" for item in v]
+        return "[\n" + ",\n".join(items) + "\n" + pad + "]"
+    if v is None:
+        return "null"
+    if isinstance(v, bool):
+        return "true" if v else "false"
+    if isinstance(v, (int, float)):
+        return str(v)
+    # string — escape backslashes and double quotes
+    escaped = str(v).replace("\\", "\\\\").replace('"', '\\"')
+    return f'"{escaped}"'
+
+
+def write_js(data):
+    header = """\
+// ── Publication Data ──────────────────────────────────────────────
+// To add a new paper: copy one entry below, fill in the fields, save, and push to GitHub.
+// Fields:
+//   year      — integer year
+//   title     — full paper title
+//   authors   — author string
+//   venue     — journal or conference name
+//   doi       — full URL (or null)
+//   type      — "journal" | "conference" | "preprint"
+//   citations — integer (or null)
+//   highlight — true to show in "Most Cited Works" cards
+
+"""
+    body = f"window.PUBLICATIONS_DATA = {_js_value(data, 0)};\n"
+    with open(PUBLICATIONS_JS, "w", encoding="utf-8") as f:
+        f.write(header + body)
+    print("data/publications.js regenerated successfully.")
+
+
 def main():
     with open(PUBLICATIONS_JSON) as f:
         data = json.load(f)
@@ -111,6 +157,7 @@ def main():
         f.write("\n")
 
     print("data/publications.json updated successfully.")
+    write_js(data)
 
 
 if __name__ == "__main__":

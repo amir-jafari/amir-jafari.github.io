@@ -12,7 +12,7 @@
 
 window.PUBLICATIONS_DATA = {
   metrics: {
-    citations: 336,
+    citations: 341,
     h_index: 8,
     i10_index: 7
   },
@@ -68,6 +68,26 @@ window.PUBLICATIONS_DATA = {
       highlight: false
     },
     {
+      year: 2026,
+      title: "Improved multi-agent knowledge sharing system using knowledge graphs for news bias detection and fact-checking: M. Fagbenro et al.",
+      authors: "Modupeola Fagbenro and Christopher Washer and Pavani Chella and Amir Jafari",
+      venue: "Neural Computing and Applications",
+      doi: "https://link.springer.com/article/10.1007/s00521-026-11944-0",
+      type: "journal",
+      citations: 0,
+      highlight: false
+    },
+    {
+      year: 2026,
+      title: "An end-to-end multi agent AI system for personal finance: synthetic data generation, budget optimization, and investment advisory",
+      authors: "Smit Snehal Pancholi and Aman Jaglan and Nemi Makadia and Yash Doshi and Amir Jafari",
+      venue: "Neural Computing and Applications",
+      doi: "https://link.springer.com/article/10.1007/s00521-025-11749-7",
+      type: "journal",
+      citations: 0,
+      highlight: false
+    },
+    {
       year: 2025,
       title: "FolkRAG: a retrieval-augmented generation system for cultural heritage materials",
       authors: "P. Kelly, J. Schild, A. Jafari",
@@ -95,6 +115,16 @@ window.PUBLICATIONS_DATA = {
       doi: "https://doi.org/10.1109/ICCAD64771.2025.11099342",
       type: "conference",
       citations: null,
+      highlight: false
+    },
+    {
+      year: 2025,
+      title: "Enhancing Residential Property Valuation through Spatiotemporal Multi-Task Quantile Regression Framework",
+      authors: "Ujjawal Dwivedi and Amir Jafari",
+      venue: "Available at SSRN 5856062",
+      doi: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5856062",
+      type: "journal",
+      citations: 0,
       highlight: false
     },
     {
@@ -178,6 +208,16 @@ window.PUBLICATIONS_DATA = {
       highlight: false
     },
     {
+      year: 2024,
+      title: "Speech Recognition Using ARMA Model and Levenberg-Marduard Algorithm",
+      authors: "Reza Jafari and Amir Jafari",
+      venue: "",
+      doi: "https://link.springer.com/chapter/10.1007/978-3-031-66336-9_25",
+      type: "journal",
+      citations: 2,
+      highlight: false
+    },
+    {
       year: 2023,
       title: "Enhanced balancing GAN: minority-class image generation",
       authors: "G. Huang, A.H. Jafari",
@@ -186,6 +226,16 @@ window.PUBLICATIONS_DATA = {
       type: "journal",
       citations: 137,
       highlight: true
+    },
+    {
+      year: 2023,
+      title: "Evaluating the Ability to Use Contextual Features to Map Deprived Areas ‘Slums’ in Multiple Cities",
+      authors: "Ryan Engstrom and Maxwell Owusu and Arathi Nair and Amir Jafari and Dana Thomson and Monika Kuffer",
+      venue: "",
+      doi: "https://ieeexplore.ieee.org/abstract/document/10282954/",
+      type: "journal",
+      citations: 0,
+      highlight: false
     },
     {
       year: 2022,
@@ -205,6 +255,26 @@ window.PUBLICATIONS_DATA = {
       doi: "https://doi.org/10.1109/LEMCPA.2022.3162068",
       type: "journal",
       citations: null,
+      highlight: false
+    },
+    {
+      year: 2022,
+      title: "A Deep Learning Anomaly Detection Method in Textual Data",
+      authors: "Amir Jafari",
+      venue: "arXiv preprint arXiv:2211.13900",
+      doi: "https://arxiv.org/abs/2211.13900",
+      type: "journal",
+      citations: 9,
+      highlight: false
+    },
+    {
+      year: 2022,
+      title: "Comparison Study Between Token Classification and Sequence Classification In Text Classification",
+      authors: "Amir Jafari",
+      venue: "arXiv preprint arXiv:2211.13899",
+      doi: "https://arxiv.org/abs/2211.13899",
+      type: "journal",
+      citations: 4,
       highlight: false
     },
     {
@@ -275,6 +345,26 @@ window.PUBLICATIONS_DATA = {
       doi: "https://doi.org/10.1109/ICMSAO.2011.5775498",
       type: "conference",
       citations: null,
+      highlight: false
+    },
+    {
+      year: 2011,
+      title: "Adaptive Neuro-Observer for Elastic Drive Systems",
+      authors: "Amir Hossein Jafari",
+      venue: "",
+      doi: "https://repository.aus.edu/entities/publication/b536f5a1-6467-4534-8880-1321e87113e6",
+      type: "journal",
+      citations: 0,
+      highlight: false
+    },
+    {
+      year: null,
+      title: "A Novel Three-Dimensional FDTD Subgridding Method for the Coupling Analysis of Shielded Cavity Excited by Ambient Wave...",
+      authors: "N Nourshamsi and PU Rodrıguez and AH Jafari and CF Bunting and T Jia and Y Huang and Q Xu and Z Tian and J Jiang and Q Hua and JH Hwang and HH Park and CH Hyoung and JH Kwon and P De Meulemeester and B Scheers and GAE Vandenbosch and D Jang and S Youn and JE Park and J Choo and H Choo and H Dogan and IB Basyigit and A Genc and S Helhel and K Pliakostathis and M Zanni and G Trentadue and H Scholz and F Haddad and B Bayard and B Sauviac and M Croizer and Q Tricas and P Besnier and X Castel and P Foutrel",
+      venue: "",
+      doi: "https://ieeexplore.ieee.org/abstract/document/9295493/",
+      type: "journal",
+      citations: 0,
       highlight: false
     }
   ]
