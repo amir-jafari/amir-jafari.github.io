@@ -12,13 +12,17 @@ then regenerates publications.js from the JSON so the website stays in sync.
 """
 import json
 import os
+import re
 import sys
 import time
+from datetime import datetime
 
 SCHOLAR_USER_ID = "HVfUixQAAAAJ"
-_DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "data")
+_ROOT           = os.path.join(os.path.dirname(__file__), "..")
+_DATA_DIR       = os.path.join(_ROOT, "data")
 PUBLICATIONS_JSON = os.path.join(_DATA_DIR, "publications.json")
 PUBLICATIONS_JS   = os.path.join(_DATA_DIR, "publications.js")
+INDEX_HTML        = os.path.join(_ROOT, "index.html")
 
 
 def fetch_scholar_papers():
@@ -143,6 +147,17 @@ def write_js(data):
     print("data/publications.js regenerated successfully.")
 
 
+def bump_cache_version():
+    version = datetime.utcnow().strftime("%Y%m%d")
+    with open(INDEX_HTML, encoding="utf-8") as f:
+        html = f.read()
+    updated = re.sub(r'(publications\.js\?v=)\d+', rf'\g<1>{version}', html)
+    if updated != html:
+        with open(INDEX_HTML, "w", encoding="utf-8") as f:
+            f.write(updated)
+        print(f"index.html cache version bumped to {version}.")
+
+
 def main():
     with open(PUBLICATIONS_JSON) as f:
         data = json.load(f)
@@ -158,6 +173,7 @@ def main():
 
     print("data/publications.json updated successfully.")
     write_js(data)
+    bump_cache_version()
 
 
 if __name__ == "__main__":
