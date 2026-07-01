@@ -19,6 +19,7 @@ import tempfile
 import time
 from datetime import datetime
 
+SCRIPT_VERSION    = "v7-multiprocess-nofill"   # bump to verify correct version is running
 SCHOLAR_USER_ID   = "HVfUixQAAAAJ"
 _ROOT             = os.path.join(os.path.dirname(__file__), "..")
 _DATA_DIR         = os.path.join(_ROOT, "data")
@@ -226,6 +227,7 @@ def bump_cache_version():
 # ── entry point ───────────────────────────────────────────────────────
 
 def main():
+    print(f"=== update_publications.py {SCRIPT_VERSION} ===", flush=True)
     with open(PUBLICATIONS_JSON) as f:
         data = json.load(f)
 
