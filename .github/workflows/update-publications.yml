@@ -11,8 +11,9 @@ on:
 
 jobs:
   update:
-    # Skip if the push was made by the bot itself (prevents infinite loop)
-    if: github.actor != 'github-actions[bot]'
+    # For push events: skip if the bot made the push (prevents infinite loop).
+    # Schedule and workflow_dispatch always run regardless of last committer.
+    if: github.event_name != 'push' || github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
