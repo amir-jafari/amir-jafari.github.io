@@ -26,10 +26,13 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install scholarly
+        run: pip install scholarly free-proxy
 
       - name: Fetch & merge publications
         run: python scripts/update_publications.py
+        env:
+          # Optional: add SCRAPER_API_KEY as a repo secret for more reliable access
+          SCRAPER_API_KEY: ${{ secrets.SCRAPER_API_KEY }}
 
       - name: Commit if changed
         run: |
