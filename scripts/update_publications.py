@@ -55,7 +55,13 @@ def fetch_scholar_papers():
     }
 
     papers = []
+    start_time = time.time()
+    MAX_TOTAL_SECONDS = 900  # stop filling papers after 15 min to stay within CI timeout
+
     for pub in author.get("publications", []):
+        if time.time() - start_time > MAX_TOTAL_SECONDS:
+            print("  Reached time limit; stopping early. Remaining papers skipped.", file=sys.stderr)
+            break
         try:
             signal.alarm(30)  # 30-second timeout per paper
             filled = scholarly.fill(pub)
