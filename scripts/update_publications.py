@@ -83,29 +83,25 @@ def _scholar_worker(output_path, scholar_user_id, scraper_api_key):
         "i10_index": author.get("i10index", 0),
     }
 
+    # Extract papers directly from the author profile listing — no per-paper
+    # fill() calls needed. Citation counts are already present on the listing
+    # page. venue/doi are preserved from existing JSON via merge() in main().
     papers = []
-    deadline = _time.time() + 900   # hard 15-min cap across all paper fills
-
     for pub in author.get("publications", []):
-        if _time.time() > deadline:
-            print("15-min cap reached; stopping paper fills.", flush=True)
-            break
-        try:
-            filled = scholarly.fill(pub)
-            bib = filled.get("bib", {})
-            papers.append({
-                "year":      int(bib["pub_year"]) if bib.get("pub_year") else None,
-                "title":     bib.get("title", ""),
-                "authors":   bib.get("author", ""),
-                "venue":     bib.get("venue", bib.get("journal", bib.get("booktitle", ""))),
-                "doi":       filled.get("pub_url") or None,
-                "type":      "conference" if bib.get("booktitle") else "journal",
-                "citations": filled.get("num_citations"),
-                "highlight": False,
-            })
-        except Exception as exc:
-            print(f"  skip: {exc}", flush=True)
-        _time.sleep(2)
+        bib = pub.get("bib", {})
+        title = bib.get("title", "")
+        if not title:
+            continue
+        papers.append({
+            "year":      int(bib["pub_year"]) if bib.get("pub_year") else None,
+            "title":     title,
+            "authors":   bib.get("author", ""),
+            "venue":     bib.get("venue", bib.get("journal", bib.get("booktitle", ""))),
+            "doi":       pub.get("pub_url") or None,
+            "type":      "conference" if bib.get("booktitle") else "journal",
+            "citations": pub.get("num_citations"),
+            "highlight": False,
+        })
 
     papers.sort(key=lambda p: p.get("year") or 0, reverse=True)
     _json.dump({"metrics": metrics, "papers": papers}, open(output_path, "w"))
