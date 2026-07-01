@@ -67,7 +67,14 @@ def _scholar_worker(output_path, scholar_user_id, scraper_api_key):
         author = scholarly.search_author_id(scholar_user_id)
         author = scholarly.fill(author, sections=["publications", "indices"])
     except Exception as e:
-        _json.dump({"error": f"author fetch failed: {e}"}, open(output_path, "w"))
+        msg = str(e)
+        if "NoneType" in msg or "canonical" in msg or "CAPTCHA" in msg.upper():
+            msg = (
+                "Google Scholar returned a CAPTCHA/bot-detection page. "
+                "Add a SCRAPER_API_KEY repo secret (free at scraperapi.com) "
+                "so scholarly can bypass bot detection reliably."
+            )
+        _json.dump({"error": msg}, open(output_path, "w"))
         return
 
     metrics = {
