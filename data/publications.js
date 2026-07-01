@@ -12,7 +12,7 @@
 
 window.PUBLICATIONS_DATA = {
   metrics: {
-    citations: 341,
+    citations: 343,
     h_index: 8,
     i10_index: 7
   },
@@ -24,7 +24,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications, vol. 38, no. 8",
       doi: "https://doi.org/10.1007/s00521-026-11998-0",
       type: "journal",
-      citations: null,
+      citations: 0,
       highlight: false
     },
     {
@@ -34,7 +34,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications, vol. 38, no. 7",
       doi: "https://doi.org/10.1007/s00521-025-11814-1",
       type: "journal",
-      citations: null,
+      citations: 0,
       highlight: false
     },
     {
@@ -54,7 +54,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications, vol. 38, no. 1",
       doi: "https://doi.org/10.1007/s00521-025-11813-2",
       type: "journal",
-      citations: null,
+      citations: 0,
       highlight: false
     },
     {
@@ -84,7 +84,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications",
       doi: "https://link.springer.com/article/10.1007/s00521-025-11749-7",
       type: "journal",
-      citations: 0,
+      citations: 1,
       highlight: false
     },
     {
@@ -94,7 +94,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications",
       doi: "https://doi.org/10.1007/s00521-025-11455-4",
       type: "journal",
-      citations: null,
+      citations: 13,
       highlight: false
     },
     {
@@ -104,7 +104,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications",
       doi: "https://doi.org/10.1007/s00521-025-11324-0",
       type: "journal",
-      citations: null,
+      citations: 2,
       highlight: false
     },
     {
@@ -114,7 +114,7 @@ window.PUBLICATIONS_DATA = {
       venue: "2025 International Conference on Control, Automation and Diagnosis (ICCAD)",
       doi: "https://doi.org/10.1109/ICCAD64771.2025.11099342",
       type: "conference",
-      citations: null,
+      citations: 1,
       highlight: false
     },
     {
@@ -134,7 +134,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications",
       doi: "https://doi.org/10.1007/s00521-024-10425-6",
       type: "journal",
-      citations: null,
+      citations: 4,
       highlight: false
     },
     {
@@ -144,7 +144,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications",
       doi: "https://doi.org/10.1007/s00521-024-10397-7",
       type: "journal",
-      citations: null,
+      citations: 10,
       highlight: false
     },
     {
@@ -154,7 +154,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications",
       doi: "https://doi.org/10.1007/s00521-024-10309-9",
       type: "journal",
-      citations: null,
+      citations: 4,
       highlight: false
     },
     {
@@ -164,7 +164,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications",
       doi: "https://doi.org/10.1007/s00521-024-10318-8",
       type: "journal",
-      citations: null,
+      citations: 6,
       highlight: false
     },
     {
@@ -174,7 +174,7 @@ window.PUBLICATIONS_DATA = {
       venue: "IET Control Theory & Applications, vol. 18, no. 15, pp. 1968–1976",
       doi: "https://doi.org/10.1049/cth2.12707",
       type: "journal",
-      citations: null,
+      citations: 0,
       highlight: false
     },
     {
@@ -184,7 +184,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Computers, Environment and Urban Systems, vol. 109",
       doi: "https://doi.org/10.1016/j.compenvurbsys.2024.102075",
       type: "journal",
-      citations: 20,
+      citations: 22,
       highlight: true
     },
     {
@@ -194,7 +194,7 @@ window.PUBLICATIONS_DATA = {
       venue: "IGARSS 2024 — IEEE International Geoscience and Remote Sensing Symposium",
       doi: "https://doi.org/10.1109/IGARSS53475.2024.10640635",
       type: "conference",
-      citations: null,
+      citations: 2,
       highlight: false
     },
     {
@@ -224,7 +224,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications, vol. 35, no. 7, pp. 5145–5154",
       doi: "https://doi.org/10.1007/s00521-021-06163-8",
       type: "journal",
-      citations: 137,
+      citations: 138,
       highlight: true
     },
     {
@@ -244,7 +244,7 @@ window.PUBLICATIONS_DATA = {
       venue: "TechRxiv (preprint)",
       doi: "https://doi.org/10.36227/techrxiv.21548109.v2",
       type: "preprint",
-      citations: null,
+      citations: 0,
       highlight: false
     },
     {
@@ -254,7 +254,7 @@ window.PUBLICATIONS_DATA = {
       venue: "IEEE Letters on Electromagnetic Compatibility Practice and Applications, vol. 4, no. 2, pp. 31–35",
       doi: "https://doi.org/10.1109/LEMCPA.2022.3162068",
       type: "journal",
-      citations: null,
+      citations: 3,
       highlight: false
     },
     {
@@ -284,7 +284,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Journal of Computer Science, vol. 17, no. 3, pp. 188–196",
       doi: "https://doi.org/10.3844/jcssp.2021.188.196",
       type: "journal",
-      citations: 67,
+      citations: 68,
       highlight: true
     },
     {
@@ -294,7 +294,7 @@ window.PUBLICATIONS_DATA = {
       venue: "IEEE Transactions on Electromagnetic Compatibility, vol. 62, no. 6, pp. 2342–2348",
       doi: "https://doi.org/10.1109/TEMC.2020.2975131",
       type: "journal",
-      citations: null,
+      citations: 5,
       highlight: false
     },
     {
@@ -304,7 +304,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications, vol. 30, no. 7, pp. 2015–2016",
       doi: "https://doi.org/10.1007/s00521-018-3694-8",
       type: "journal",
-      citations: null,
+      citations: 2,
       highlight: false
     },
     {
@@ -324,7 +324,7 @@ window.PUBLICATIONS_DATA = {
       venue: "2015 International Joint Conference on Neural Networks (IJCNN)",
       doi: "https://doi.org/10.1109/IJCNN.2015.7280405",
       type: "conference",
-      citations: null,
+      citations: 7,
       highlight: false
     },
     {
@@ -334,7 +334,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Journal of Advanced Computational Intelligence and Intelligent Informatics, vol. 17, no. 4, pp. 637–646",
       doi: "https://doi.org/10.20965/jaciii.2013.p0637",
       type: "journal",
-      citations: null,
+      citations: 14,
       highlight: false
     },
     {
@@ -344,7 +344,7 @@ window.PUBLICATIONS_DATA = {
       venue: "2011 Fourth International Conference on Modeling, Simulation and Applied Optimization (ICMSAO)",
       doi: "https://doi.org/10.1109/ICMSAO.2011.5775498",
       type: "conference",
-      citations: null,
+      citations: 5,
       highlight: false
     },
     {
