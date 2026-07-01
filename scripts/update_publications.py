@@ -6,16 +6,17 @@ and data/publications.js (the file the website actually loads).
 Usage:
     python scripts/update_publications.py
 
-Uses scholarly with free rotating proxies so GitHub Actions IPs are not
-blocked by Google Scholar. Optionally reads SCRAPER_API_KEY from the
-environment for more reliable ScraperAPI-based access.
+Runs the scholarly scrape in a child process so it can be hard-killed if
+Google Scholar hangs the connection (which it does from CI IP ranges).
+Set a repo secret SCRAPER_API_KEY for more reliable access via ScraperAPI.
 """
 import json
+import multiprocessing
 import os
 import re
 import sys
+import tempfile
 import time
-import signal
 from datetime import datetime
 
 SCHOLAR_USER_ID   = "HVfUixQAAAAJ"
@@ -26,67 +27,48 @@ PUBLICATIONS_JS   = os.path.join(_DATA_DIR, "publications.js")
 INDEX_HTML        = os.path.join(_ROOT, "index.html")
 
 
-# ── proxy setup ──────────────────────────────────────────────────────
+# ── child-process worker ──────────────────────────────────────────────
+# Runs in a subprocess so SIGKILL can terminate it even if scholarly
+# is stuck in a C-level socket call that ignores SIGALRM.
 
-def _setup_proxy(scholarly_mod, ProxyGenerator):
-    """Configure a proxy so Scholar doesn't block GitHub Actions IPs."""
-    scraper_key = os.environ.get("SCRAPER_API_KEY", "").strip()
-    if scraper_key:
-        pg = ProxyGenerator()
-        pg.ScraperAPI(scraper_key)
-        scholarly_mod.use_proxy(pg)
-        print("Proxy: ScraperAPI")
-        return
+def _scholar_worker(output_path, scholar_user_id, scraper_api_key):
+    """Fetch all Scholar data and dump JSON to output_path."""
+    import socket
+    import time as _time
+    socket.setdefaulttimeout(30)   # every socket op times out after 30 s
 
-    # Fall back to free rotating proxies (no API key required)
-    try:
-        pg = ProxyGenerator()
-        if pg.FreeProxies():
-            scholarly_mod.use_proxy(pg)
-            print("Proxy: FreeProxies")
-            return
-    except Exception as e:
-        print(f"FreeProxies unavailable ({e}); trying direct.", file=sys.stderr)
+    import json as _json
 
-    print("WARNING: No proxy configured. Scholar may block CI requests.", file=sys.stderr)
-
-
-# ── timeout helpers ───────────────────────────────────────────────────
-
-def _alarm(seconds):
-    """Set a SIGALRM; pass 0 to cancel."""
-    signal.alarm(seconds)
-
-def _timeout_handler(signum, frame):
-    raise TimeoutError("Scholar request timed out.")
-
-signal.signal(signal.SIGALRM, _timeout_handler)
-
-
-# ── main fetch ────────────────────────────────────────────────────────
-
-def fetch_scholar_papers():
     try:
         from scholarly import scholarly, ProxyGenerator
     except ImportError:
-        print("ERROR: scholarly not installed. Run: pip install scholarly free-proxy", file=sys.stderr)
-        sys.exit(1)
+        _json.dump({"error": "scholarly not installed"}, open(output_path, "w"))
+        return
 
-    _setup_proxy(scholarly, ProxyGenerator)
-    print(f"Fetching author {SCHOLAR_USER_ID} from Google Scholar …")
+    # proxy setup
+    if scraper_api_key:
+        pg = ProxyGenerator()
+        pg.ScraperAPI(scraper_api_key)
+        scholarly.use_proxy(pg)
+        print("Proxy: ScraperAPI", flush=True)
+    else:
+        try:
+            pg = ProxyGenerator()
+            if pg.FreeProxies():
+                scholarly.use_proxy(pg)
+                print("Proxy: FreeProxies", flush=True)
+            else:
+                print("WARNING: no free proxies found; trying direct.", flush=True)
+        except Exception as e:
+            print(f"WARNING: proxy setup failed ({e}); trying direct.", flush=True)
 
-    _alarm(120)
+    # author lookup
     try:
-        author = scholarly.search_author_id(SCHOLAR_USER_ID)
+        author = scholarly.search_author_id(scholar_user_id)
         author = scholarly.fill(author, sections=["publications", "indices"])
-    except TimeoutError:
-        print("ERROR: Author lookup timed out (Scholar is blocking requests).", file=sys.stderr)
-        sys.exit(1)
     except Exception as e:
-        print(f"ERROR: Could not fetch author: {e}", file=sys.stderr)
-        sys.exit(1)
-    finally:
-        _alarm(0)
+        _json.dump({"error": f"author fetch failed: {e}"}, open(output_path, "w"))
+        return
 
     metrics = {
         "citations": author.get("citedby", 0),
@@ -95,40 +77,78 @@ def fetch_scholar_papers():
     }
 
     papers = []
-    deadline = time.time() + 900  # hard 15-min wall clock across all papers
+    deadline = _time.time() + 900   # hard 15-min cap across all paper fills
 
     for pub in author.get("publications", []):
-        if time.time() > deadline:
-            print("  15-min limit reached; remaining papers skipped.", file=sys.stderr)
+        if _time.time() > deadline:
+            print("15-min cap reached; stopping paper fills.", flush=True)
             break
         try:
-            _alarm(45)
             filled = scholarly.fill(pub)
-            _alarm(0)
-        except TimeoutError:
-            _alarm(0)
-            print(f"  skip (timeout): {pub.get('bib',{}).get('title','')[:60]}", file=sys.stderr)
-            continue
+            bib = filled.get("bib", {})
+            papers.append({
+                "year":      int(bib["pub_year"]) if bib.get("pub_year") else None,
+                "title":     bib.get("title", ""),
+                "authors":   bib.get("author", ""),
+                "venue":     bib.get("venue", bib.get("journal", bib.get("booktitle", ""))),
+                "doi":       filled.get("pub_url") or None,
+                "type":      "conference" if bib.get("booktitle") else "journal",
+                "citations": filled.get("num_citations"),
+                "highlight": False,
+            })
         except Exception as exc:
-            _alarm(0)
-            print(f"  skip (error): {exc}", file=sys.stderr)
-            continue
-
-        bib = filled.get("bib", {})
-        papers.append({
-            "year":      int(bib["pub_year"]) if bib.get("pub_year") else None,
-            "title":     bib.get("title", ""),
-            "authors":   bib.get("author", ""),
-            "venue":     bib.get("venue", bib.get("journal", bib.get("booktitle", ""))),
-            "doi":       filled.get("pub_url") or None,
-            "type":      "conference" if bib.get("booktitle") else "journal",
-            "citations": filled.get("num_citations"),
-            "highlight": False,
-        })
-        time.sleep(2)  # be polite to Scholar
+            print(f"  skip: {exc}", flush=True)
+        _time.sleep(2)
 
     papers.sort(key=lambda p: p.get("year") or 0, reverse=True)
-    return metrics, papers
+    _json.dump({"metrics": metrics, "papers": papers}, open(output_path, "w"))
+    print(f"Worker done: {len(papers)} papers fetched.", flush=True)
+
+
+# ── orchestrator ──────────────────────────────────────────────────────
+
+def fetch_scholar_papers(timeout_sec=1080):   # 18-min timeout (< job timeout)
+    scraper_key = os.environ.get("SCRAPER_API_KEY", "").strip()
+
+    fd, output_path = tempfile.mkstemp(suffix=".json")
+    os.close(fd)
+
+    try:
+        p = multiprocessing.Process(
+            target=_scholar_worker,
+            args=(output_path, SCHOLAR_USER_ID, scraper_key),
+        )
+        p.start()
+        p.join(timeout=timeout_sec)
+
+        if p.is_alive():
+            p.kill()
+            p.join()
+            print(f"ERROR: Scholar worker killed after {timeout_sec}s.", file=sys.stderr)
+            sys.exit(1)
+
+        size = os.path.getsize(output_path)
+        if size == 0:
+            print("ERROR: Scholar worker wrote no output.", file=sys.stderr)
+            sys.exit(1)
+
+        with open(output_path) as f:
+            result = json.load(f)
+
+        if "error" in result:
+            print(f"ERROR: {result['error']}", file=sys.stderr)
+            sys.exit(1)
+
+        metrics = result["metrics"]
+        papers  = result["papers"]
+        print(f"Fetched {len(papers)} papers — "
+              f"citations={metrics['citations']}, "
+              f"h={metrics['h_index']}, i10={metrics['i10_index']}")
+        return metrics, papers
+
+    finally:
+        if os.path.exists(output_path):
+            os.unlink(output_path)
 
 
 # ── merge ─────────────────────────────────────────────────────────────
@@ -141,7 +161,6 @@ def merge(existing, new_papers):
         if not key:
             continue
         if key in index:
-            # update citation count only
             if p.get("citations") is not None:
                 existing[index[key]]["citations"] = p["citations"]
         else:
