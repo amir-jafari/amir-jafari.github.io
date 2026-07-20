@@ -12,7 +12,7 @@
 
 window.PUBLICATIONS_DATA = {
   metrics: {
-    citations: 347,
+    citations: 353,
     h_index: 8,
     i10_index: 7
   },
@@ -94,7 +94,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications",
       doi: "https://doi.org/10.1007/s00521-025-11455-4",
       type: "journal",
-      citations: 15,
+      citations: 16,
       highlight: false
     },
     {
@@ -164,7 +164,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications",
       doi: "https://doi.org/10.1007/s00521-024-10318-8",
       type: "journal",
-      citations: 6,
+      citations: 7,
       highlight: false
     },
     {
@@ -194,7 +194,7 @@ window.PUBLICATIONS_DATA = {
       venue: "IGARSS 2024 — IEEE International Geoscience and Remote Sensing Symposium",
       doi: "https://doi.org/10.1109/IGARSS53475.2024.10640635",
       type: "conference",
-      citations: 2,
+      citations: 3,
       highlight: false
     },
     {
@@ -224,7 +224,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications, vol. 35, no. 7, pp. 5145–5154",
       doi: "https://doi.org/10.1007/s00521-021-06163-8",
       type: "journal",
-      citations: 138,
+      citations: 139,
       highlight: true
     },
     {
@@ -284,7 +284,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Journal of Computer Science, vol. 17, no. 3, pp. 188–196",
       doi: "https://doi.org/10.3844/jcssp.2021.188.196",
       type: "journal",
-      citations: 68,
+      citations: 70,
       highlight: true
     },
     {
