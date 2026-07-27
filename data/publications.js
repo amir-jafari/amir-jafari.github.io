@@ -12,9 +12,9 @@
 
 window.PUBLICATIONS_DATA = {
   metrics: {
-    citations: 353,
+    citations: 355,
     h_index: 8,
-    i10_index: 7
+    i10_index: 8
   },
   papers: [
     {
@@ -264,7 +264,7 @@ window.PUBLICATIONS_DATA = {
       venue: "arXiv preprint arXiv:2211.13900",
       doi: "https://arxiv.org/abs/2211.13900",
       type: "journal",
-      citations: 9,
+      citations: 10,
       highlight: false
     },
     {
@@ -294,7 +294,7 @@ window.PUBLICATIONS_DATA = {
       venue: "IEEE Transactions on Electromagnetic Compatibility, vol. 62, no. 6, pp. 2342–2348",
       doi: "https://doi.org/10.1109/TEMC.2020.2975131",
       type: "journal",
-      citations: 5,
+      citations: 6,
       highlight: false
     },
     {
