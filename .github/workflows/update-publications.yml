@@ -27,7 +27,10 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install scholarly free-proxy "httpx<0.24"
+        # free-proxy>=1.1.0 requires a `repeat` arg to get_proxy_list() that the
+        # last PyPI release of scholarly (1.7.11, unmaintained since 2023) doesn't
+        # pass, so pin free-proxy below that to keep the two packages compatible.
+        run: pip install scholarly "free-proxy<1.1.0" "httpx<0.24"
 
       - name: Fetch & merge publications
         run: python scripts/update_publications.py

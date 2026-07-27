@@ -19,7 +19,7 @@ import tempfile
 import time
 from datetime import datetime
 
-SCRIPT_VERSION    = "v7-multiprocess-nofill"   # bump to verify correct version is running
+SCRIPT_VERSION    = "v8-proxy-guard"   # bump to verify correct version is running
 SCHOLAR_USER_ID   = "HVfUixQAAAAJ"
 _ROOT             = os.path.join(os.path.dirname(__file__), "..")
 _DATA_DIR         = os.path.join(_ROOT, "data")
@@ -47,11 +47,18 @@ def _scholar_worker(output_path, scholar_user_id, scraper_api_key):
         return
 
     # proxy setup
+    # use_proxy() also wires up a secondary FreeProxies-based fallback proxy
+    # internally (even on the ScraperAPI path), so both branches can fail on
+    # a free-proxy/scholarly version mismatch — guard both rather than let a
+    # proxy hiccup hard-fail the whole job.
     if scraper_api_key:
-        pg = ProxyGenerator()
-        pg.ScraperAPI(scraper_api_key)
-        scholarly.use_proxy(pg)
-        print("Proxy: ScraperAPI", flush=True)
+        try:
+            pg = ProxyGenerator()
+            pg.ScraperAPI(scraper_api_key)
+            scholarly.use_proxy(pg)
+            print("Proxy: ScraperAPI", flush=True)
+        except Exception as e:
+            print(f"WARNING: ScraperAPI proxy setup failed ({e}); trying direct.", flush=True)
     else:
         try:
             pg = ProxyGenerator()
