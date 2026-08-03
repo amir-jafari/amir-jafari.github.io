@@ -12,7 +12,7 @@
 
 window.PUBLICATIONS_DATA = {
   metrics: {
-    citations: 355,
+    citations: 356,
     h_index: 8,
     i10_index: 8
   },
@@ -84,7 +84,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications",
       doi: "https://link.springer.com/article/10.1007/s00521-025-11749-7",
       type: "journal",
-      citations: 1,
+      citations: 2,
       highlight: false
     },
     {
@@ -94,7 +94,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications",
       doi: "https://doi.org/10.1007/s00521-025-11455-4",
       type: "journal",
-      citations: 16,
+      citations: 18,
       highlight: false
     },
     {
@@ -164,7 +164,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications",
       doi: "https://doi.org/10.1007/s00521-024-10318-8",
       type: "journal",
-      citations: 7,
+      citations: 8,
       highlight: false
     },
     {
@@ -184,7 +184,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Computers, Environment and Urban Systems, vol. 109",
       doi: "https://doi.org/10.1016/j.compenvurbsys.2024.102075",
       type: "journal",
-      citations: 24,
+      citations: 25,
       highlight: true
     },
     {
@@ -224,7 +224,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications, vol. 35, no. 7, pp. 5145–5154",
       doi: "https://doi.org/10.1007/s00521-021-06163-8",
       type: "journal",
-      citations: 139,
+      citations: 138,
       highlight: true
     },
     {
@@ -284,7 +284,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Journal of Computer Science, vol. 17, no. 3, pp. 188–196",
       doi: "https://doi.org/10.3844/jcssp.2021.188.196",
       type: "journal",
-      citations: 70,
+      citations: 68,
       highlight: true
     },
     {
@@ -294,7 +294,7 @@ window.PUBLICATIONS_DATA = {
       venue: "IEEE Transactions on Electromagnetic Compatibility, vol. 62, no. 6, pp. 2342–2348",
       doi: "https://doi.org/10.1109/TEMC.2020.2975131",
       type: "journal",
-      citations: 6,
+      citations: 5,
       highlight: false
     },
     {
