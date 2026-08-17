@@ -12,7 +12,7 @@
 
 window.PUBLICATIONS_DATA = {
   metrics: {
-    citations: 358,
+    citations: 364,
     h_index: 8,
     i10_index: 8
   },
@@ -94,7 +94,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications",
       doi: "https://doi.org/10.1007/s00521-025-11455-4",
       type: "journal",
-      citations: 18,
+      citations: 20,
       highlight: false
     },
     {
@@ -144,7 +144,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications",
       doi: "https://doi.org/10.1007/s00521-024-10397-7",
       type: "journal",
-      citations: 10,
+      citations: 11,
       highlight: false
     },
     {
@@ -184,7 +184,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Computers, Environment and Urban Systems, vol. 109",
       doi: "https://doi.org/10.1016/j.compenvurbsys.2024.102075",
       type: "journal",
-      citations: 26,
+      citations: 27,
       highlight: true
     },
     {
@@ -194,7 +194,7 @@ window.PUBLICATIONS_DATA = {
       venue: "IGARSS 2024 — IEEE International Geoscience and Remote Sensing Symposium",
       doi: "https://doi.org/10.1109/IGARSS53475.2024.10640635",
       type: "conference",
-      citations: 3,
+      citations: 4,
       highlight: false
     },
     {
@@ -334,7 +334,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Journal of Advanced Computational Intelligence and Intelligent Informatics, vol. 17, no. 4, pp. 637–646",
       doi: "https://doi.org/10.20965/jaciii.2013.p0637",
       type: "journal",
-      citations: 14,
+      citations: 15,
       highlight: false
     },
     {
