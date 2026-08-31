@@ -12,7 +12,7 @@
 
 window.PUBLICATIONS_DATA = {
   metrics: {
-    citations: 367,
+    citations: 368,
     h_index: 8,
     i10_index: 8
   },
@@ -224,7 +224,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications, vol. 35, no. 7, pp. 5145–5154",
       doi: "https://doi.org/10.1007/s00521-021-06163-8",
       type: "journal",
-      citations: 140,
+      citations: 141,
       highlight: true
     },
     {
