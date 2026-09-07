@@ -12,7 +12,7 @@
 
 window.PUBLICATIONS_DATA = {
   metrics: {
-    citations: 368,
+    citations: 370,
     h_index: 8,
     i10_index: 8
   },
@@ -184,7 +184,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Computers, Environment and Urban Systems, vol. 109",
       doi: "https://doi.org/10.1016/j.compenvurbsys.2024.102075",
       type: "journal",
-      citations: 27,
+      citations: 28,
       highlight: true
     },
     {
@@ -284,7 +284,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Journal of Computer Science, vol. 17, no. 3, pp. 188–196",
       doi: "https://doi.org/10.3844/jcssp.2021.188.196",
       type: "journal",
-      citations: 69,
+      citations: 70,
       highlight: true
     },
     {
@@ -363,6 +363,16 @@ window.PUBLICATIONS_DATA = {
       authors: "N Nourshamsi and PU Rodrıguez and AH Jafari and CF Bunting and T Jia and Y Huang and Q Xu and Z Tian and J Jiang and Q Hua and JH Hwang and HH Park and CH Hyoung and JH Kwon and P De Meulemeester and B Scheers and GAE Vandenbosch and D Jang and S Youn and JE Park and J Choo and H Choo and H Dogan and IB Basyigit and A Genc and S Helhel and K Pliakostathis and M Zanni and G Trentadue and H Scholz and F Haddad and B Bayard and B Sauviac and M Croizer and Q Tricas and P Besnier and X Castel and P Foutrel",
       venue: "",
       doi: "https://ieeexplore.ieee.org/abstract/document/9295493/",
+      type: "journal",
+      citations: 0,
+      highlight: false
+    },
+    {
+      year: null,
+      title: "Sparse Feature Selection, Not Deep Learning Capacity, Drives Spatial Transfer in Crop Classification",
+      authors: "",
+      venue: "",
+      doi: null,
       type: "journal",
       citations: 0,
       highlight: false
