@@ -224,7 +224,7 @@ def bump_cache_version():
     version = datetime.now().strftime("%Y%m%d")
     with open(INDEX_HTML, encoding="utf-8") as f:
         html = f.read()
-    updated = re.sub(r'(publications\.js\?v=)\d+', rf'\g<1>{version}', html)
+    updated = re.sub(r'(\.js\?v=)\d+', rf'\g<1>{version}', html)
     if updated != html:
         with open(INDEX_HTML, "w", encoding="utf-8") as f:
             f.write(updated)

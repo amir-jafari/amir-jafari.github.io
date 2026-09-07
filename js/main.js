@@ -68,20 +68,42 @@ document.addEventListener('click', e => {
 });
 
 // ── Publications — dynamic loader ─────────────────────────────────
+// publications.js is cache-busted by the ?v= stamp in index.html, but that only
+// helps if the browser re-fetched index.html. A browser holding a cached
+// index.html asks for the *old* stamp and renders week-old numbers. So paint
+// the embedded copy first (instant, works offline), then re-fetch the JSON with
+// no-store and re-render if the server has something newer.
 function loadPublications() {
   const container = document.getElementById('pub-list-container');
   if (!container) return;
 
-  const data = window.PUBLICATIONS_DATA;
-  if (data) {
-    renderStats(data);
-    renderHighlights(data.papers);
-    renderFullList(data.papers, container);
-  } else {
-    container.innerHTML =
-      '<p class="pub-error">Publication data not found. ' +
-      '<a href="https://scholar.google.com/citations?user=HVfUixQAAAAJ&hl=en" target="_blank">View on Google Scholar</a>.</p>';
-  }
+  const embedded = window.PUBLICATIONS_DATA;
+  if (embedded) renderPublications(embedded, container);
+
+  fetch('data/publications.json', { cache: 'no-store' })
+    .then(res => (res.ok ? res.json() : Promise.reject(new Error(res.status))))
+    .then(fresh => {
+      if (!fresh || !Array.isArray(fresh.papers)) throw new Error('bad payload');
+      if (embedded && JSON.stringify(fresh) === JSON.stringify(embedded)) return;
+      window.PUBLICATIONS_DATA = fresh;
+      renderPublications(fresh, container);
+    })
+    .catch(() => {
+      // Offline, file://, or a bad response — the embedded copy is still valid.
+      if (!embedded) showPublicationsError(container);
+    });
+}
+
+function renderPublications(data, container) {
+  renderStats(data);
+  renderHighlights(data.papers);
+  renderFullList(data.papers, container);
+}
+
+function showPublicationsError(container) {
+  container.innerHTML =
+    '<p class="pub-error">Publication data not found. ' +
+    '<a href="https://scholar.google.com/citations?user=HVfUixQAAAAJ&hl=en" target="_blank">View on Google Scholar</a>.</p>';
 }
 
 function renderStats(data) {
