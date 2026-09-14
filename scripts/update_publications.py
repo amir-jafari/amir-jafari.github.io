@@ -19,7 +19,7 @@ import tempfile
 import time
 from datetime import datetime
 
-SCRIPT_VERSION    = "v8-proxy-guard"   # bump to verify correct version is running
+SCRIPT_VERSION    = "v9-import-diag"   # bump to verify correct version is running
 SCHOLAR_USER_ID   = "HVfUixQAAAAJ"
 _ROOT             = os.path.join(os.path.dirname(__file__), "..")
 _DATA_DIR         = os.path.join(_ROOT, "data")
@@ -42,8 +42,11 @@ def _scholar_worker(output_path, scholar_user_id, scraper_api_key):
 
     try:
         from scholarly import scholarly, ProxyGenerator
-    except ImportError:
-        _json.dump({"error": "scholarly not installed"}, open(output_path, "w"))
+    except ImportError as e:
+        # Report the real import error — scholarly pulls in several unpinned
+        # dependencies, so this fires on a broken transitive version far more
+        # often than on an actually missing package.
+        _json.dump({"error": f"could not import scholarly: {e}"}, open(output_path, "w"))
         return
 
     # proxy setup

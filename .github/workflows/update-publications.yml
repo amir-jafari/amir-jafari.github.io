@@ -30,7 +30,10 @@ jobs:
         # free-proxy>=1.1.0 requires a `repeat` arg to get_proxy_list() that the
         # last PyPI release of scholarly (1.7.11, unmaintained since 2023) doesn't
         # pass, so pin free-proxy below that to keep the two packages compatible.
-        run: pip install scholarly "free-proxy<1.1.0" "httpx<0.24"
+        # bibtexparser 2.0 (released 2026-09-08) dropped the v1 modules that same
+        # scholarly release imports at module load (`bibtexparser.bibdatabase`),
+        # so pin it below 2 or `import scholarly` fails outright.
+        run: pip install scholarly "free-proxy<1.1.0" "httpx<0.24" "bibtexparser<2"
 
       - name: Fetch & merge publications
         run: python scripts/update_publications.py
