@@ -1,0 +1,75 @@
+# Pinned dependency set for scripts/update_publications.py
+#
+# scholarly 1.7.11 is the last release (Jan 2023) of an unmaintained package and
+# declares every one of its dependencies WITHOUT a version bound. Any of them can
+# publish a breaking major at any time and silently break the scheduled workflow -
+# which is exactly what happened on 2026-09-14, when bibtexparser 2.0 removed the
+# v1 modules scholarly imports at load time and the job died in 2s on ImportError.
+#
+# This file is the fully resolved, verified-good set from the green run on
+# 2026-09-14 (Actions run 34846370497, Python 3.11). Every version below was
+# confirmed to exist on PyPI.
+#
+# To refresh deliberately: relax the pins locally, `pip install -U`, run the
+# script end to end, then `pip freeze` the result back into this file. Do not
+# relax the three MUST pins without re-reading the comments beside them.
+
+# ---- direct dependencies -------------------------------------------------
+
+scholarly==1.7.11  # last release (2023); every dependency below is unpinned upstream
+bibtexparser==1.4.4  # MUST stay <2 - v2 dropped the v1 modules scholarly imports
+free-proxy==1.0.6  # MUST stay <1.1.0 - 1.1.0 changed get_proxy_list() signature
+httpx==0.23.3  # MUST stay <0.24 - pairs with the httpcore 0.16 API scholarly expects
+
+# ---- transitive (pinned for reproducibility; no direct imports) ----------
+alabaster==1.0.0
+anyio==4.15.1
+arrow==1.4.0
+attrs==26.1.0
+babel==2.18.0
+beautifulsoup4==4.15.0
+certifi==2026.7.22
+charset-normalizer==3.5.1
+deprecated==1.3.1
+docutils==0.22.4
+fake-useragent==2.2.0
+h11==0.14.0
+httpcore==0.16.3
+idna==3.19
+imagesize==2.0.1
+Jinja2==3.1.6
+lxml==6.1.3
+MarkupSafe==3.0.3
+outcome==1.3.0.post0
+packaging==26.3
+Pygments==2.21.0
+pyparsing==3.3.2
+PySocks==1.7.1
+python-dateutil==2.9.0.post0
+python-dotenv==1.2.3
+requests==2.34.2
+rfc3986==1.5.0
+roman-numerals==4.1.0
+selenium==4.49.0
+six==1.17.0
+sniffio==1.3.1
+snowballstemmer==3.1.1
+sortedcontainers==2.4.0
+soupsieve==2.9.2
+sphinx==9.0.4
+sphinx-rtd-theme==3.1.0
+sphinxcontrib-applehelp==2.0.0
+sphinxcontrib-devhelp==2.0.0
+sphinxcontrib-htmlhelp==2.1.0
+sphinxcontrib-jquery==4.1
+sphinxcontrib-jsmath==1.0.1
+sphinxcontrib-qthelp==2.0.0
+sphinxcontrib-serializinghtml==2.0.0
+trio==0.34.0
+trio-websocket==0.12.2
+typing-extensions==4.16.0
+tzdata==2026.4
+urllib3==2.7.0
+websocket-client==1.9.2
+wrapt==2.4.1
+wsproto==1.2.0

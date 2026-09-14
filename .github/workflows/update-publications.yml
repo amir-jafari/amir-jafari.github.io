@@ -27,13 +27,10 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        # free-proxy>=1.1.0 requires a `repeat` arg to get_proxy_list() that the
-        # last PyPI release of scholarly (1.7.11, unmaintained since 2023) doesn't
-        # pass, so pin free-proxy below that to keep the two packages compatible.
-        # bibtexparser 2.0 (released 2026-09-08) dropped the v1 modules that same
-        # scholarly release imports at module load (`bibtexparser.bibdatabase`),
-        # so pin it below 2 or `import scholarly` fails outright.
-        run: pip install scholarly "free-proxy<1.1.0" "httpx<0.24" "bibtexparser<2"
+        # Fully pinned - scholarly 1.7.11 is unmaintained and leaves every one of
+        # its dependencies unbounded, so an unpinned install breaks without warning
+        # whenever any of them ships a major. See the comments in requirements.txt.
+        run: pip install -r scripts/requirements.txt
 
       - name: Fetch & merge publications
         run: python scripts/update_publications.py
