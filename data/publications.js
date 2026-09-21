@@ -12,7 +12,7 @@
 
 window.PUBLICATIONS_DATA = {
   metrics: {
-    citations: 370,
+    citations: 371,
     h_index: 8,
     i10_index: 8
   },
@@ -284,7 +284,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Journal of Computer Science, vol. 17, no. 3, pp. 188–196",
       doi: "https://doi.org/10.3844/jcssp.2021.188.196",
       type: "journal",
-      citations: 70,
+      citations: 71,
       highlight: true
     },
     {
