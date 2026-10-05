@@ -91,7 +91,7 @@ window.PUBLICATIONS_DATA = {
       year: 2026,
       title: "A unified adaptive PID–feedback linearization framework for robust quadrotor control",
       authors: "Amir Hossein Jafari, Rached Dhaouadi, Reza Jafari, Aihan Liu",
-      venue: "",
+      venue: "International Journal of Dynamics and Control",
       doi: "https://doi.org/10.1007/s40435-026-02320-w",
       type: "journal",
       citations: 0,
