@@ -12,7 +12,7 @@
 
 window.PUBLICATIONS_DATA = {
   metrics: {
-    citations: 373,
+    citations: 374,
     h_index: 8,
     i10_index: 8
   },
@@ -84,7 +84,17 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications",
       doi: "https://link.springer.com/article/10.1007/s00521-025-11749-7",
       type: "journal",
-      citations: 2,
+      citations: 3,
+      highlight: false
+    },
+    {
+      year: 2026,
+      title: "A unified adaptive PID–feedback linearization framework for robust quadrotor control",
+      authors: "",
+      venue: "",
+      doi: null,
+      type: "journal",
+      citations: 0,
       highlight: false
     },
     {
