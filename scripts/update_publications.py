@@ -8,8 +8,8 @@ Usage:
 
 Scrapes the public Scholar profile page directly using only the Python
 standard library - no scholarly, no paid proxy, nothing to pip install.
-Google Scholar blocks datacenter IPs (including GitHub-hosted runners), so
-the workflow runs this on a self-hosted runner with a residential IP.
+Google Scholar blocks datacenter IPs (including GitHub Actions), so this
+runs weekly on a home/office PC via scripts/sync_publications.ps1.
 """
 import json
 import os
