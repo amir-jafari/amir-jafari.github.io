@@ -290,6 +290,56 @@ img { max-width: 100%; display: block; }
 .stat-number { font-size: 2.2rem; font-weight: 700; color: var(--blue); line-height: 1; }
 .stat-label  { font-size: .8rem; color: var(--slate); font-weight: 500; margin-top: .4rem; text-transform: uppercase; letter-spacing: .05em; }
 
+/* ── Pub Charts (js/charts.js) ──────────────────────────────────── */
+.chart-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 1rem; }
+.chart-grid.two-up { grid-template-columns: 1fr 1fr; }
+.chart-grid.two-up .chart-wide { grid-column: 1 / -1; }
+.chart-card {
+  margin: 0; background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px; box-shadow: var(--card-shadow); min-width: 0;
+}
+.chart-title { font-size: 1rem; font-weight: 600; color: var(--text); margin: 0; }
+.chart-sub   { font-size: .8rem; color: var(--slate); margin: .2rem 0 .75rem; }
+.chart-svg   { display: block; overflow: visible; }
+.chart-axis  { font-size: 11px; fill: var(--slate); font-variant-numeric: tabular-nums; }
+.chart-value { font-size: 11px; font-weight: 600; fill: var(--text); }
+.chart-mark  { transition: opacity .12s; }
+.chart-mark.active { opacity: .7; }
+.chart-hit   { cursor: default; outline: none; }
+.chart-hit:focus-visible { stroke: var(--navy); stroke-width: 1; }
+.chart-legend { display: flex; flex-wrap: wrap; gap: .4rem 1rem; font-size: .8rem; color: var(--slate); margin-bottom: .5rem; }
+.chart-legend-item { display: inline-flex; align-items: center; gap: .4rem; }
+.chart-legend-swatch { width: 10px; height: 10px; border-radius: 2px; }
+
+.chart-hbars { display: flex; flex-direction: column; gap: .9rem; }
+.chart-hbar  { outline: none; border-radius: 6px; }
+.chart-hbar:focus-visible { box-shadow: 0 0 0 2px var(--blue-l); }
+.chart-hbar-title {
+  font-size: .85rem; color: var(--text); margin-bottom: .3rem;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.chart-hbar-track { display: flex; align-items: center; gap: .5rem; }
+.chart-hbar-bar   { height: 12px; min-width: 4px; border-radius: 0 4px 4px 0; }
+.chart-hbar-value { font-size: .8rem; font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; }
+
+.chart-table { margin-top: .75rem; font-size: .8rem; color: var(--slate); }
+.chart-table summary { cursor: pointer; width: fit-content; }
+.chart-table table { width: 100%; border-collapse: collapse; margin-top: .5rem; font-variant-numeric: tabular-nums; }
+.chart-table th, .chart-table td { text-align: left; padding: .3rem .5rem; border-bottom: 1px solid var(--border); color: var(--text); }
+.chart-table th { font-weight: 600; color: var(--slate); }
+
+.chart-tip {
+  position: absolute; z-index: 1000; pointer-events: none; opacity: 0; transition: opacity .1s;
+  background: var(--white); border: 1px solid var(--border); border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.12); padding: .5rem .7rem; font-size: .8rem;
+  color: var(--slate); max-width: 320px;
+}
+.chart-tip.visible { opacity: 1; }
+.chart-tip-head { font-weight: 600; color: var(--text); margin-bottom: .25rem; }
+.chart-tip-row  { display: flex; align-items: center; gap: .4rem; }
+.chart-tip-row strong { color: var(--text); font-variant-numeric: tabular-nums; }
+.chart-tip-key  { width: 10px; height: 2px; border-radius: 1px; }
+
 /* ── Pub List ───────────────────────────────────────────────────── */
 .pub-list { display: flex; flex-direction: column; gap: 0; }
 .pub-item { display: flex; gap: 1.5rem; padding: 1.5rem 0; border-bottom: 1px solid var(--border); }

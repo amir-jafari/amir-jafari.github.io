@@ -55,12 +55,25 @@ class _ProfileParser(HTMLParser):
         self._grays = 0       # gs_gray divs seen in the current row
         self._skip  = 0       # depth inside <span class="gs_oph"> (year suffix)
         self._buf   = []
+        # Citations-per-year histogram: year labels and bars, each keyed by
+        # its CSS "right:Npx" offset (years with 0 citations have no bar).
+        self.hist_years = []
+        self.hist_bars  = []
+        self._bar_right = None
 
     def handle_starttag(self, tag, attrs):
         a   = dict(attrs)
         cls = (a.get("class") or "").split()
+        right = re.search(r"right:\s*(\d+)px", a.get("style") or "")
         if tag == "td" and "gsc_rsb_std" in cls:
             self._start("stat")
+        elif tag == "span" and "gsc_g_t" in cls and right:
+            self._bar_right = None
+            self._start(("hist_year", int(right.group(1))))
+        elif tag == "a" and "gsc_g_a" in cls and right:
+            self._bar_right = int(right.group(1))
+        elif tag == "span" and "gsc_g_al" in cls and self._bar_right is not None:
+            self._start(("hist_bar", self._bar_right))
         elif tag == "tr" and "gsc_a_tr" in cls:
             self._row, self._grays = {"title": "", "authors": "", "venue": "",
                                       "link": None, "citations": "", "year": ""}, 0
@@ -86,6 +99,10 @@ class _ProfileParser(HTMLParser):
             text = " ".join("".join(self._buf).split())
             if self._field == "stat":
                 self.stats.append(text)
+            elif isinstance(self._field, tuple):
+                kind, pos = self._field
+                (self.hist_years if kind == "hist_year" else self.hist_bars).append((pos, text))
+                self._bar_right = None
             else:
                 self._row[self._field] = text
             self._field, self._buf = None, []
@@ -118,6 +135,21 @@ def _int(text):
     return int(text) if text else None
 
 
+def _citations_by_year(parser):
+    """Scholar's histogram as [{year, citations}], including zero years.
+
+    Each bar sits a few px left of its year label, so match by nearest offset.
+    """
+    counts = {}
+    for bar_right, value in parser.hist_bars:
+        if not parser.hist_years:
+            break
+        _, year = min(parser.hist_years, key=lambda y: abs(y[0] - bar_right))
+        counts[year] = _int(value) or 0
+    return [{"year": _int(y), "citations": counts.get(y, 0)}
+            for _, y in sorted(parser.hist_years, key=lambda y: -y[0])]
+
+
 def fetch_scholar_papers():
     try:
         first = _fetch_page(0)
@@ -129,14 +161,15 @@ def fetch_scholar_papers():
     # Missing means Scholar served a CAPTCHA/bot-check page instead of the profile.
     if len(first.stats) < 6:
         print("ERROR: Google Scholar returned a CAPTCHA/bot-detection page "
-              "instead of the profile. Is this running on a GitHub-hosted "
-              "runner instead of the self-hosted one?", file=sys.stderr)
+              "instead of the profile. Is this running somewhere Scholar "
+              "blocks, such as GitHub Actions?", file=sys.stderr)
         sys.exit(1)
 
     metrics = {
         "citations": _int(first.stats[0]) or 0,
         "h_index":   _int(first.stats[2]) or 0,
         "i10_index": _int(first.stats[4]) or 0,
+        "citations_by_year": _citations_by_year(first),
     }
 
     rows, page = list(first.papers), first
@@ -391,7 +424,7 @@ def write_js(data):
 
 
 def bump_cache_version():
-    version = datetime.now().strftime("%Y%m%d")
+    version = datetime.now().strftime("%Y%m%d%H%M")
     with open(INDEX_HTML, encoding="utf-8") as f:
         html = f.read()
     updated = re.sub(r'(\.js\?v=)\d+', rf'\g<1>{version}', html)

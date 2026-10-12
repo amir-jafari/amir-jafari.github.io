@@ -98,6 +98,7 @@ function renderPublications(data, container) {
   // hidden: set by the sync script for Scholar entries that aren't really yours
   data = { ...data, papers: (data.papers || []).filter(p => !p.hidden) };
   renderStats(data);
+  if (typeof renderCharts === 'function') renderCharts(data);
   renderHighlights(data.papers);
   renderFullList(data.papers, container);
 }

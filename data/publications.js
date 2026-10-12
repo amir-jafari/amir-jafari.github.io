@@ -14,7 +14,61 @@ window.PUBLICATIONS_DATA = {
   metrics: {
     citations: 378,
     h_index: 8,
-    i10_index: 8
+    i10_index: 8,
+    citations_by_year: [
+      {
+        year: 2014,
+        citations: 4
+      },
+      {
+        year: 2015,
+        citations: 2
+      },
+      {
+        year: 2016,
+        citations: 1
+      },
+      {
+        year: 2017,
+        citations: 2
+      },
+      {
+        year: 2018,
+        citations: 4
+      },
+      {
+        year: 2019,
+        citations: 7
+      },
+      {
+        year: 2020,
+        citations: 4
+      },
+      {
+        year: 2021,
+        citations: 7
+      },
+      {
+        year: 2022,
+        citations: 32
+      },
+      {
+        year: 2023,
+        citations: 46
+      },
+      {
+        year: 2024,
+        citations: 86
+      },
+      {
+        year: 2025,
+        citations: 103
+      },
+      {
+        year: 2026,
+        citations: 72
+      }
+    ]
   },
   papers: [
     {
