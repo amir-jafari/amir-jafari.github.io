@@ -18,7 +18,9 @@ if ($Register) {
         "-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$PSCommandPath`"")
     $trigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek Monday -At 9am
     # StartWhenAvailable: if the PC was off/asleep at 9am Monday, run at next wake.
+    # Battery flags: Windows otherwise skips the task on a laptop running on battery.
     $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -RunOnlyIfNetworkAvailable `
+        -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries `
         -ExecutionTimeLimit (New-TimeSpan -Minutes 20)
     Register-ScheduledTask -TaskName $TaskName -Action $action -Trigger $trigger `
         -Settings $settings -Force | Out-Null
