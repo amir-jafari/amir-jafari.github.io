@@ -95,6 +95,8 @@ function loadPublications() {
 }
 
 function renderPublications(data, container) {
+  // hidden: set by the sync script for Scholar entries that aren't really yours
+  data = { ...data, papers: (data.papers || []).filter(p => !p.hidden) };
   renderStats(data);
   renderHighlights(data.papers);
   renderFullList(data.papers, container);
@@ -133,7 +135,7 @@ function renderHighlights(papers) {
       <p><em>${p.venue}</em><br>${p.authors}</p>
       <div class="card-tags">
         ${p.citations ? `<span class="tag">${p.citations} citations</span>` : ''}
-        <span class="tag">${p.year}</span>
+        ${p.year ? `<span class="tag">${p.year}</span>` : ''}
       </div>
       ${p.doi ? `<a href="${p.doi}" target="_blank" class="card-link">View Paper <i class="fas fa-arrow-right"></i></a>` : ''}
     </div>
@@ -157,7 +159,7 @@ function renderFullList(papers, container) {
       : '';
     html += `
       <div class="pub-item">
-        <div class="pub-year">${p.year}</div>
+        <div class="pub-year">${p.year || ''}</div>
         <div>
           <p class="pub-title">${p.doi
             ? `<a href="${p.doi}" target="_blank">${p.title}</a>`

@@ -11,6 +11,7 @@ standard library - no scholarly, no paid proxy, nothing to pip install.
 Google Scholar blocks datacenter IPs (including GitHub Actions), so this
 runs weekly on a home/office PC via scripts/sync_publications.ps1.
 """
+import difflib
 import json
 import os
 import re
@@ -21,7 +22,7 @@ import urllib.request
 from datetime import datetime
 from html.parser import HTMLParser
 
-SCRIPT_VERSION    = "v11-crossref-doi"   # bump to verify correct version is running
+SCRIPT_VERSION    = "v12-dedupe-enrich"   # bump to verify correct version is running
 SCHOLAR_USER_ID   = "HVfUixQAAAAJ"
 _ROOT             = os.path.join(os.path.dirname(__file__), "..")
 _DATA_DIR         = os.path.join(_ROOT, "data")
@@ -166,41 +167,82 @@ def fetch_scholar_papers():
     return metrics, papers
 
 
-# ── merge ─────────────────────────────────────────────────────────────
-
-def merge(existing, new_papers):
-    index = {p["title"].lower().strip(): i for i, p in enumerate(existing)}
-    added = 0
-    for p in new_papers:
-        key = p["title"].lower().strip()
-        if not key:
-            continue
-        if key in index:
-            if p.get("citations") is not None:
-                existing[index[key]]["citations"] = p["citations"]
-        else:
-            existing.append(p)
-            index[key] = len(existing) - 1
-            added += 1
-    existing.sort(key=lambda p: p.get("year") or 0, reverse=True)
-    print(f"Added {added} new paper(s). Total: {len(existing)}")
-    return existing
-
-
-# ── DOI lookup ────────────────────────────────────────────────────────
+# ── title matching ────────────────────────────────────────────────────
 
 def _norm_title(title):
     return re.sub(r"[^a-z0-9]+", " ", title.lower()).strip()
 
 
-def find_doi(title):
-    """Return a doi.org URL for title from Crossref, or None if no confident match.
+def same_title(a, b):
+    """True if two titles are the same paper despite Scholar's quirks.
 
-    Only accepts a record whose title matches exactly (ignoring case and
-    punctuation) and that lists AUTHOR_SURNAME, so a wrong DOI is never filled in.
+    Handles case/punctuation ("multi-agent" vs "multi agent"), junk Scholar
+    appends ("...: M. Fagbenro et al."), truncation ("...Ambient Wave...")
+    and small typos ("Marduard" vs "Marquardt").
     """
-    query = urllib.parse.urlencode({"query.bibliographic": title, "rows": 5,
-                                    "select": "DOI,title,subtitle,author"})
+    a, b = _norm_title(a), _norm_title(b)
+    if not a or not b:
+        return False
+    if a == b:
+        return True
+    short, long_ = sorted((a, b), key=len)
+    if len(short) >= 30 and long_.startswith(short) and len(short) >= 0.75 * len(long_):
+        return True
+    return difflib.SequenceMatcher(None, a, b).ratio() >= 0.95
+
+
+def _has_doi(p):
+    return (p.get("doi") or "").startswith("https://doi.org/")
+
+
+# ── merge ─────────────────────────────────────────────────────────────
+
+def dedupe(papers):
+    """Collapse entries that are the same paper, keeping the best-filled one."""
+    kept = []
+    for p in papers:
+        twin = next((k for k in kept if same_title(k["title"], p["title"])), None)
+        if twin is None:
+            kept.append(p)
+            continue
+        # Prefer a doi.org link, then any non-Scholar link (i.e. curated data).
+        rank = lambda x: (_has_doi(x), bool(x.get("doi")) and not x["doi"].startswith(SCHOLAR_BASE))
+        keep, drop = (twin, p) if rank(twin) >= rank(p) else (p, twin)
+        cites = [c for c in (keep.get("citations"), drop.get("citations")) if c is not None]
+        keep["citations"] = max(cites) if cites else None
+        keep["highlight"] = keep.get("highlight") or drop.get("highlight")
+        if keep is p:
+            kept[kept.index(twin)] = p
+        print(f"Merged duplicate: {drop['title'][:70]}")
+    return kept
+
+
+def merge(existing, new_papers):
+    existing = dedupe(existing)
+    updated = set()   # Scholar sometimes lists a paper twice; keep the higher count
+    added = 0
+    for p in new_papers:
+        match = next((i for i, e in enumerate(existing)
+                      if same_title(e["title"], p["title"])), None)
+        if match is None:
+            existing.append(p)
+            updated.add(len(existing) - 1)
+            added += 1
+        elif p.get("citations") is not None:
+            old = existing[match].get("citations")
+            if match not in updated or old is None or p["citations"] > old:
+                existing[match]["citations"] = p["citations"]
+            updated.add(match)
+    existing.sort(key=lambda p: p.get("year") or 0, reverse=True)
+    print(f"Added {added} new paper(s). Total: {len(existing)}")
+    return existing
+
+
+# ── Crossref enrichment ───────────────────────────────────────────────
+
+def _crossref_search(title):
+    """Crossref records whose title is the same paper; None if the lookup failed."""
+    query = urllib.parse.urlencode({"query.bibliographic": title, "rows": 5})
     req = urllib.request.Request(f"{CROSSREF_API}?{query}",
                                  headers={"User-Agent": CROSSREF_UA})
     try:
@@ -209,35 +251,106 @@ def find_doi(title):
     except Exception as e:
         print(f"WARNING: Crossref lookup failed for {title[:60]!r} ({type(e).__name__}: {e})")
         return None
-
-    want = _norm_title(title)
+    hits = []
     for it in items:
         titles = it.get("title") or []
         titles += [f"{t} {s}" for t in titles for s in it.get("subtitle") or []]
-        authors = [(a.get("family") or "").lower() for a in it.get("author") or []]
-        if any(_norm_title(t) == want for t in titles) and AUTHOR_SURNAME in authors:
-            return "https://doi.org/" + it["DOI"]
+        if any(same_title(t, title) for t in titles):
+            hits.append(it)
+    return hits
+
+
+def _is_mine(item):
+    # word match: Crossref sometimes files "Amir Hossein Jafari" as family "Hossein Jafari"
+    return any(AUTHOR_SURNAME in re.split(r"\W+", (a.get("family") or "").lower())
+               for a in item.get("author") or [])
+
+
+def _strip_tags(text):
+    return " ".join(re.sub(r"<[^>]+>", "", text or "").split())
+
+
+def _cr_authors(item):
+    names = []
+    for a in item.get("author") or []:
+        given = "".join(f"{part[0]}." for part in re.split(r"[\s.]+", a.get("given") or "") if part)
+        family = a.get("family") or a.get("name") or ""
+        names.append(f"{given} {family}".strip())
+    return ", ".join(n for n in names if n)
+
+
+def _cr_venue(item):
+    container = (item.get("container-title") or [""])[0]
+    if not container:
+        container = ((item.get("institution") or [{}])[0].get("name")
+                     or ("SSRN preprint" if item.get("DOI", "").startswith("10.2139/") else "")
+                     or ("Preprint" if item.get("type") == "posted-content" else ""))
+    parts = [_strip_tags(container)]
+    if item.get("volume"): parts.append(f"vol. {item['volume']}")
+    if item.get("issue"):  parts.append(f"no. {item['issue']}")
+    if item.get("page"):   parts.append(f"pp. {item['page'].replace('-', '–')}")
+    return ", ".join(p for p in parts if p)
+
+
+def _cr_year(item):
+    for key in ("published-print", "published-online", "issued", "posted"):
+        parts = (item.get(key) or {}).get("date-parts") or [[None]]
+        if parts[0] and parts[0][0]:
+            return int(parts[0][0])
     return None
 
 
-def fill_dois(papers):
-    """Look up DOIs for papers with no link or only a Scholar link.
+_CR_TYPES = {"proceedings-article": "conference", "posted-content": "preprint",
+             "book-chapter": "conference", "journal-article": "journal"}
 
-    New papers often aren't in Crossref yet, so unresolved ones are retried
-    on every run. Links added by hand (publisher, arXiv, ...) are left alone.
+
+def enrich(papers):
+    """Fill in DOI and metadata from Crossref; hide entries that aren't yours.
+
+    Skips entries that already have a doi.org link and a year, authors and
+    venue. Entries that came straight
+    from Scholar (no link, or a Scholar link) get DOI, full authors, venue,
+    year and type from Crossref. Hand-entered links are kept, but empty
+    fields are still filled. If Crossref shows the paper exists but under
+    other authors only, Scholar misattributed it, so the entry is hidden.
+    Unresolved entries are retried every run (new papers reach Crossref late).
     """
-    found = 0
+    filled = hidden = 0
     for p in papers:
-        doi = p.get("doi") or ""
-        if doi and not doi.startswith(SCHOLAR_BASE):
+        complete = all(p.get(k) for k in ("year", "authors", "venue"))
+        if p.get("hidden") or (_has_doi(p) and complete):
             continue
-        url = find_doi(p["title"])
-        if url:
-            p["doi"] = url
-            found += 1
-            print(f"DOI found: {url}  {p['title'][:60]}")
+        hits = _crossref_search(p["title"])
         time.sleep(1)   # be polite to the free API
-    print(f"Filled {found} DOI(s).")
+        if not hits:
+            continue
+        mine = next((h for h in hits if _is_mine(h)), None)
+        if mine is None:
+            if all(h.get("author") for h in hits):
+                p["hidden"] = True
+                hidden += 1
+                by = _cr_authors(hits[0])
+                print(f"Hidden (Crossref lists it under {by[:60]}): {p['title'][:60]}")
+            continue
+
+        from_scholar = not p.get("doi") or p["doi"].startswith(SCHOLAR_BASE)
+        new = {
+            "title":   _strip_tags((mine.get("title") or [""])[0]),
+            "authors": _cr_authors(mine),
+            "venue":   _cr_venue(mine),
+            "year":    _cr_year(mine),
+            "type":    _CR_TYPES.get(mine.get("type")),
+        }
+        for key, value in new.items():
+            # type: Scholar's listing can't tell, so new entries all say "journal"
+            if value and (from_scholar or key == "type" or not p.get(key)):
+                p[key] = value
+        if from_scholar:
+            p["doi"] = "https://doi.org/" + mine["DOI"]
+        filled += 1
+        print(f"Filled from Crossref: {p['title'][:60]}")
+    papers.sort(key=lambda p: p.get("year") or 0, reverse=True)
+    print(f"Crossref: filled {filled}, hid {hidden}.")
 
 
 # ── JS writer ─────────────────────────────────────────────────────────
@@ -299,7 +412,7 @@ def main():
 
     data["metrics"] = metrics
     data["papers"]  = merge(data.get("papers", []), new_papers)
-    fill_dois(data["papers"])
+    enrich(data["papers"])
 
     with open(PUBLICATIONS_JSON, "w", encoding="utf-8", newline="\n") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
