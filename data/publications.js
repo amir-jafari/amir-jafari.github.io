@@ -382,7 +382,7 @@ window.PUBLICATIONS_DATA = {
       title: "Sparse Feature Selection, Not Deep Learning Capacity, Drives Spatial Transfer in Crop Classification",
       authors: "",
       venue: "",
-      doi: null,
+      doi: "https://doi.org/10.2139/ssrn.7360015",
       type: "journal",
       citations: 0,
       highlight: false

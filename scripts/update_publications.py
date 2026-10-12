@@ -16,11 +16,12 @@ import os
 import re
 import sys
 import time
+import urllib.parse
 import urllib.request
 from datetime import datetime
 from html.parser import HTMLParser
 
-SCRIPT_VERSION    = "v10-direct-stdlib"   # bump to verify correct version is running
+SCRIPT_VERSION    = "v11-crossref-doi"   # bump to verify correct version is running
 SCHOLAR_USER_ID   = "HVfUixQAAAAJ"
 _ROOT             = os.path.join(os.path.dirname(__file__), "..")
 _DATA_DIR         = os.path.join(_ROOT, "data")
@@ -32,6 +33,11 @@ SCHOLAR_BASE = "https://scholar.google.com"
 PAGE_SIZE    = 100   # max rows Scholar returns per profile page
 USER_AGENT   = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                 "(KHTML, like Gecko) Chrome/130.0 Safari/537.36")
+
+CROSSREF_API = "https://api.crossref.org/works"
+CROSSREF_UA  = ("amir-jafari.github.io publications sync "
+                "(https://github.com/amir-jafari/amir-jafari.github.io)")
+AUTHOR_SURNAME = "jafari"   # a Crossref match must list this author
 
 
 # ── profile page parser ───────────────────────────────────────────────
@@ -181,6 +187,59 @@ def merge(existing, new_papers):
     return existing
 
 
+# ── DOI lookup ────────────────────────────────────────────────────────
+
+def _norm_title(title):
+    return re.sub(r"[^a-z0-9]+", " ", title.lower()).strip()
+
+
+def find_doi(title):
+    """Return a doi.org URL for title from Crossref, or None if no confident match.
+
+    Only accepts a record whose title matches exactly (ignoring case and
+    punctuation) and that lists AUTHOR_SURNAME, so a wrong DOI is never filled in.
+    """
+    query = urllib.parse.urlencode({"query.bibliographic": title, "rows": 5,
+                                    "select": "DOI,title,subtitle,author"})
+    req = urllib.request.Request(f"{CROSSREF_API}?{query}",
+                                 headers={"User-Agent": CROSSREF_UA})
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            items = json.load(resp)["message"]["items"]
+    except Exception as e:
+        print(f"WARNING: Crossref lookup failed for {title[:60]!r} ({type(e).__name__}: {e})")
+        return None
+
+    want = _norm_title(title)
+    for it in items:
+        titles = it.get("title") or []
+        titles += [f"{t} {s}" for t in titles for s in it.get("subtitle") or []]
+        authors = [(a.get("family") or "").lower() for a in it.get("author") or []]
+        if any(_norm_title(t) == want for t in titles) and AUTHOR_SURNAME in authors:
+            return "https://doi.org/" + it["DOI"]
+    return None
+
+
+def fill_dois(papers):
+    """Look up DOIs for papers with no link or only a Scholar link.
+
+    New papers often aren't in Crossref yet, so unresolved ones are retried
+    on every run. Links added by hand (publisher, arXiv, ...) are left alone.
+    """
+    found = 0
+    for p in papers:
+        doi = p.get("doi") or ""
+        if doi and not doi.startswith(SCHOLAR_BASE):
+            continue
+        url = find_doi(p["title"])
+        if url:
+            p["doi"] = url
+            found += 1
+            print(f"DOI found: {url}  {p['title'][:60]}")
+        time.sleep(1)   # be polite to the free API
+    print(f"Filled {found} DOI(s).")
+
+
 # ── JS writer ─────────────────────────────────────────────────────────
 
 def _js_value(v, indent=0):
@@ -240,6 +299,7 @@ def main():
 
     data["metrics"] = metrics
     data["papers"]  = merge(data.get("papers", []), new_papers)
+    fill_dois(data["papers"])
 
     with open(PUBLICATIONS_JSON, "w", encoding="utf-8", newline="\n") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
