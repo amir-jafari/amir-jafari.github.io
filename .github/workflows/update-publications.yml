@@ -14,7 +14,10 @@ jobs:
     # For push events: skip if the bot made the push (prevents infinite loop).
     # Schedule and workflow_dispatch always run regardless of last committer.
     if: github.event_name != 'push' || github.actor != 'github-actions[bot]'
-    runs-on: ubuntu-latest
+    # Google Scholar blocks GitHub-hosted runners' datacenter IPs, so this runs
+    # on a self-hosted runner on a home/office machine (residential IP). If the
+    # runner is offline, the job just queues until it comes back.
+    runs-on: [self-hosted, Windows]
     timeout-minutes: 20
     permissions:
       contents: write
@@ -22,30 +25,22 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v6
-        with:
-          python-version: "3.11"
-
-      - name: Install dependencies
-        # Fully pinned - scholarly 1.7.11 is unmaintained and leaves every one of
-        # its dependencies unbounded, so an unpinned install breaks without warning
-        # whenever any of them ships a major. See the comments in requirements.txt.
-        run: pip install -r scripts/requirements.txt
-
+      # Standard library only - uses whatever Python is on the runner's PATH.
       - name: Fetch & merge publications
         run: python scripts/update_publications.py
         env:
-          # Optional: add SCRAPER_API_KEY as a repo secret for more reliable access
-          SCRAPER_API_KEY: ${{ secrets.SCRAPER_API_KEY }}
+          PYTHONIOENCODING: utf-8
 
       - name: Commit if changed
+        shell: powershell
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/publications.json data/publications.js index.html
-          if git diff --cached --quiet; then
-            echo "No new publications found."
-          else
+          git diff --cached --quiet
+          if ($LASTEXITCODE -eq 0) {
+            "No new publications found."
+          } else {
             git commit -m "chore: sync publications from Google Scholar"
             git push
-          fi
+          }

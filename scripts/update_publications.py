@@ -6,20 +6,21 @@ and data/publications.js (the file the website actually loads).
 Usage:
     python scripts/update_publications.py
 
-Runs the scholarly scrape in a child process so it can be hard-killed if
-Google Scholar hangs the connection (which it does from CI IP ranges).
-Set a repo secret SCRAPER_API_KEY for more reliable access via ScraperAPI.
+Scrapes the public Scholar profile page directly using only the Python
+standard library - no scholarly, no paid proxy, nothing to pip install.
+Google Scholar blocks datacenter IPs (including GitHub-hosted runners), so
+the workflow runs this on a self-hosted runner with a residential IP.
 """
 import json
-import multiprocessing
 import os
 import re
 import sys
-import tempfile
 import time
+import urllib.request
 from datetime import datetime
+from html.parser import HTMLParser
 
-SCRIPT_VERSION    = "v9-import-diag"   # bump to verify correct version is running
+SCRIPT_VERSION    = "v10-direct-stdlib"   # bump to verify correct version is running
 SCHOLAR_USER_ID   = "HVfUixQAAAAJ"
 _ROOT             = os.path.join(os.path.dirname(__file__), "..")
 _DATA_DIR         = os.path.join(_ROOT, "data")
@@ -27,142 +28,136 @@ PUBLICATIONS_JSON = os.path.join(_DATA_DIR, "publications.json")
 PUBLICATIONS_JS   = os.path.join(_DATA_DIR, "publications.js")
 INDEX_HTML        = os.path.join(_ROOT, "index.html")
 
+SCHOLAR_BASE = "https://scholar.google.com"
+PAGE_SIZE    = 100   # max rows Scholar returns per profile page
+USER_AGENT   = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                "(KHTML, like Gecko) Chrome/130.0 Safari/537.36")
 
-# ── child-process worker ──────────────────────────────────────────────
-# Runs in a subprocess so SIGKILL can terminate it even if scholarly
-# is stuck in a C-level socket call that ignores SIGALRM.
 
-def _scholar_worker(output_path, scholar_user_id, scraper_api_key):
-    """Fetch all Scholar data and dump JSON to output_path."""
-    import socket
-    import time as _time
-    socket.setdefaulttimeout(30)   # every socket op times out after 30 s
+# ── profile page parser ───────────────────────────────────────────────
 
-    import json as _json
+class _ProfileParser(HTMLParser):
+    """Pulls the metrics table and publication rows out of a profile page."""
 
-    try:
-        from scholarly import scholarly, ProxyGenerator
-    except ImportError as e:
-        # Report the real import error — scholarly pulls in several unpinned
-        # dependencies, so this fires on a broken transitive version far more
-        # often than on an actually missing package.
-        _json.dump({"error": f"could not import scholarly: {e}"}, open(output_path, "w"))
-        return
+    def __init__(self):
+        super().__init__()
+        self.stats  = []      # "All" / "Since" cells, row by row
+        self.papers = []
+        self._row   = None    # paper being built while inside <tr class="gsc_a_tr">
+        self._field = None    # which field text is currently going to
+        self._grays = 0       # gs_gray divs seen in the current row
+        self._skip  = 0       # depth inside <span class="gs_oph"> (year suffix)
+        self._buf   = []
 
-    # proxy setup
-    # use_proxy() also wires up a secondary FreeProxies-based fallback proxy
-    # internally (even on the ScraperAPI path), so both branches can fail on
-    # a free-proxy/scholarly version mismatch — guard both rather than let a
-    # proxy hiccup hard-fail the whole job.
-    if scraper_api_key:
-        try:
-            pg = ProxyGenerator()
-            pg.ScraperAPI(scraper_api_key)
-            scholarly.use_proxy(pg)
-            print("Proxy: ScraperAPI", flush=True)
-        except Exception as e:
-            print(f"WARNING: ScraperAPI proxy setup failed ({e}); trying direct.", flush=True)
-    else:
-        try:
-            pg = ProxyGenerator()
-            if pg.FreeProxies():
-                scholarly.use_proxy(pg)
-                print("Proxy: FreeProxies", flush=True)
+    def handle_starttag(self, tag, attrs):
+        a   = dict(attrs)
+        cls = (a.get("class") or "").split()
+        if tag == "td" and "gsc_rsb_std" in cls:
+            self._start("stat")
+        elif tag == "tr" and "gsc_a_tr" in cls:
+            self._row, self._grays = {"title": "", "authors": "", "venue": "",
+                                      "link": None, "citations": "", "year": ""}, 0
+        elif self._row is None:
+            return
+        elif tag == "a" and "gsc_a_at" in cls:
+            self._row["link"] = SCHOLAR_BASE + a.get("href", "")
+            self._start("title")
+        elif tag == "div" and "gs_gray" in cls:
+            self._grays += 1
+            self._start("authors" if self._grays == 1 else "venue")
+        elif tag == "span" and "gs_oph" in cls:
+            self._skip += 1
+        elif tag == "a" and "gsc_a_ac" in cls:
+            self._start("citations")
+        elif tag == "span" and "gsc_a_h" in cls:
+            self._start("year")
+
+    def handle_endtag(self, tag):
+        if tag == "span" and self._skip:
+            self._skip -= 1
+        elif self._field and tag in ("td", "a", "div", "span"):
+            text = " ".join("".join(self._buf).split())
+            if self._field == "stat":
+                self.stats.append(text)
             else:
-                print("WARNING: no free proxies found; trying direct.", flush=True)
-        except Exception as e:
-            print(f"WARNING: proxy setup failed ({e}); trying direct.", flush=True)
+                self._row[self._field] = text
+            self._field, self._buf = None, []
+        elif tag == "tr" and self._row is not None:
+            self.papers.append(self._row)
+            self._row = None
 
-    # author lookup
+    def handle_data(self, data):
+        if self._field and not self._skip:
+            self._buf.append(data)
+
+    def _start(self, field):
+        self._field, self._buf = field, []
+
+
+def _fetch_page(cstart):
+    url = (f"{SCHOLAR_BASE}/citations?user={SCHOLAR_USER_ID}&hl=en"
+           f"&cstart={cstart}&pagesize={PAGE_SIZE}&sortby=pubdate")
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT,
+                                               "Accept-Language": "en-US,en;q=0.9"})
+    with urllib.request.urlopen(req, timeout=60) as resp:
+        html = resp.read().decode("utf-8", errors="replace")
+    parser = _ProfileParser()
+    parser.feed(html)
+    return parser
+
+
+def _int(text):
+    text = re.sub(r"\D", "", text or "")
+    return int(text) if text else None
+
+
+def fetch_scholar_papers():
     try:
-        author = scholarly.search_author_id(scholar_user_id)
-        author = scholarly.fill(author, sections=["publications", "indices"])
+        first = _fetch_page(0)
     except Exception as e:
-        msg = str(e)
-        if "NoneType" in msg or "canonical" in msg or "CAPTCHA" in msg.upper():
-            msg = (
-                "Google Scholar returned a CAPTCHA/bot-detection page. "
-                "Add a SCRAPER_API_KEY repo secret (free at scraperapi.com) "
-                "so scholarly can bypass bot detection reliably."
-            )
-        _json.dump({"error": msg}, open(output_path, "w"))
-        return
+        print(f"ERROR: could not reach Google Scholar ({type(e).__name__}: {e}).", file=sys.stderr)
+        sys.exit(1)
+
+    # Stats cells are [citations all, since, h all, since, i10 all, since].
+    # Missing means Scholar served a CAPTCHA/bot-check page instead of the profile.
+    if len(first.stats) < 6:
+        print("ERROR: Google Scholar returned a CAPTCHA/bot-detection page "
+              "instead of the profile. Is this running on a GitHub-hosted "
+              "runner instead of the self-hosted one?", file=sys.stderr)
+        sys.exit(1)
 
     metrics = {
-        "citations": author.get("citedby", 0),
-        "h_index":   author.get("hindex",  0),
-        "i10_index": author.get("i10index", 0),
+        "citations": _int(first.stats[0]) or 0,
+        "h_index":   _int(first.stats[2]) or 0,
+        "i10_index": _int(first.stats[4]) or 0,
     }
 
-    # Extract papers directly from the author profile listing — no per-paper
-    # fill() calls needed. Citation counts are already present on the listing
-    # page. venue/doi are preserved from existing JSON via merge() in main().
+    rows, page = list(first.papers), first
+    while len(page.papers) == PAGE_SIZE:
+        time.sleep(3)   # be polite between pages
+        page = _fetch_page(len(rows))
+        rows.extend(page.papers)
+
     papers = []
-    for pub in author.get("publications", []):
-        bib = pub.get("bib", {})
-        title = bib.get("title", "")
-        if not title:
+    for r in rows:
+        if not r["title"]:
             continue
         papers.append({
-            "year":      int(bib["pub_year"]) if bib.get("pub_year") else None,
-            "title":     title,
-            "authors":   bib.get("author", ""),
-            "venue":     bib.get("venue", bib.get("journal", bib.get("booktitle", ""))),
-            "doi":       pub.get("pub_url") or None,
-            "type":      "conference" if bib.get("booktitle") else "journal",
-            "citations": pub.get("num_citations"),
+            "year":      _int(r["year"]),
+            "title":     r["title"],
+            "authors":   r["authors"],
+            "venue":     r["venue"],
+            "doi":       r["link"],
+            "type":      "journal",
+            "citations": _int(r["citations"]) or 0,
             "highlight": False,
         })
 
     papers.sort(key=lambda p: p.get("year") or 0, reverse=True)
-    _json.dump({"metrics": metrics, "papers": papers}, open(output_path, "w"))
-    print(f"Worker done: {len(papers)} papers fetched.", flush=True)
-
-
-# ── orchestrator ──────────────────────────────────────────────────────
-
-def fetch_scholar_papers(timeout_sec=1080):   # 18-min timeout (< job timeout)
-    scraper_key = os.environ.get("SCRAPER_API_KEY", "").strip()
-
-    fd, output_path = tempfile.mkstemp(suffix=".json")
-    os.close(fd)
-
-    try:
-        p = multiprocessing.Process(
-            target=_scholar_worker,
-            args=(output_path, SCHOLAR_USER_ID, scraper_key),
-        )
-        p.start()
-        p.join(timeout=timeout_sec)
-
-        if p.is_alive():
-            p.kill()
-            p.join()
-            print(f"ERROR: Scholar worker killed after {timeout_sec}s.", file=sys.stderr)
-            sys.exit(1)
-
-        size = os.path.getsize(output_path)
-        if size == 0:
-            print("ERROR: Scholar worker wrote no output.", file=sys.stderr)
-            sys.exit(1)
-
-        with open(output_path) as f:
-            result = json.load(f)
-
-        if "error" in result:
-            print(f"ERROR: {result['error']}", file=sys.stderr)
-            sys.exit(1)
-
-        metrics = result["metrics"]
-        papers  = result["papers"]
-        print(f"Fetched {len(papers)} papers — "
-              f"citations={metrics['citations']}, "
-              f"h={metrics['h_index']}, i10={metrics['i10_index']}")
-        return metrics, papers
-
-    finally:
-        if os.path.exists(output_path):
-            os.unlink(output_path)
+    print(f"Fetched {len(papers)} papers — "
+          f"citations={metrics['citations']}, "
+          f"h={metrics['h_index']}, i10={metrics['i10_index']}")
+    return metrics, papers
 
 
 # ── merge ─────────────────────────────────────────────────────────────
@@ -218,7 +213,7 @@ def write_js(data):
 //   highlight — true to show in "Most Cited Works" cards
 
 """
-    with open(PUBLICATIONS_JS, "w", encoding="utf-8") as f:
+    with open(PUBLICATIONS_JS, "w", encoding="utf-8", newline="\n") as f:
         f.write(header + f"window.PUBLICATIONS_DATA = {_js_value(data, 0)};\n")
     print("data/publications.js regenerated.")
 
@@ -229,7 +224,7 @@ def bump_cache_version():
         html = f.read()
     updated = re.sub(r'(\.js\?v=)\d+', rf'\g<1>{version}', html)
     if updated != html:
-        with open(INDEX_HTML, "w", encoding="utf-8") as f:
+        with open(INDEX_HTML, "w", encoding="utf-8", newline="\n") as f:
             f.write(updated)
         print(f"Cache version bumped to {version}.")
 
@@ -238,7 +233,7 @@ def bump_cache_version():
 
 def main():
     print(f"=== update_publications.py {SCRIPT_VERSION} ===", flush=True)
-    with open(PUBLICATIONS_JSON) as f:
+    with open(PUBLICATIONS_JSON, encoding="utf-8") as f:
         data = json.load(f)
 
     metrics, new_papers = fetch_scholar_papers()
@@ -246,7 +241,7 @@ def main():
     data["metrics"] = metrics
     data["papers"]  = merge(data.get("papers", []), new_papers)
 
-    with open(PUBLICATIONS_JSON, "w") as f:
+    with open(PUBLICATIONS_JSON, "w", encoding="utf-8", newline="\n") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
         f.write("\n")
 
