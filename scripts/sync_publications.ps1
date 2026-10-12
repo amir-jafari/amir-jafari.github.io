@@ -33,7 +33,8 @@ Set-Location $repo
 function Log($msg) { "$(Get-Date -Format s)  $msg" | Add-Content -Path $log -Encoding utf8 }
 
 function Run($exe, [string[]]$argv) {
-    $out = & $exe @argv 2>&1 | Out-String
+    # ForEach "$_" turns git's stderr warnings into plain text, not PS errors.
+    $out = & $exe @argv 2>&1 | ForEach-Object { "$_" } | Out-String
     if ($out.Trim()) { Log $out.Trim() }
     if ($LASTEXITCODE -ne 0) { Log "FAILED: $exe $argv (exit $LASTEXITCODE)"; exit 1 }
 }
@@ -46,6 +47,7 @@ if ($branch -ne "main") { Log "On branch '$branch', not main - skipping."; exit 
 Run git @("pull", "--rebase", "--autostash")
 
 $env:PYTHONIOENCODING = "utf-8"
+[Console]::OutputEncoding = [Text.Encoding]::UTF8
 Run python @("scripts/update_publications.py")
 
 $files = @("data/publications.json", "data/publications.js", "index.html")
