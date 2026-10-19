@@ -12,7 +12,7 @@
 
 window.PUBLICATIONS_DATA = {
   metrics: {
-    citations: 378,
+    citations: 379,
     h_index: 8,
     i10_index: 8,
     citations_by_year: [
@@ -66,7 +66,7 @@ window.PUBLICATIONS_DATA = {
       },
       {
         year: 2026,
-        citations: 72
+        citations: 73
       }
     ]
   },
@@ -148,7 +148,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications",
       doi: "https://doi.org/10.1007/s00521-025-11455-4",
       type: "journal",
-      citations: 22,
+      citations: 23,
       highlight: false
     },
     {
