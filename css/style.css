@@ -610,6 +610,7 @@ footer a:hover { color: #fff; }
   padding: .2rem .65rem; border-radius: 20px; background: #dcfce7; color: #15803d;
 }
 .grant-status--upcoming { background: #fef3c7; color: #b45309; }
+.grant-status--completed { background: #f1f5f9; color: var(--slate); }
 .grant-role { font-size: .8rem; font-weight: 600; color: var(--navy); }
 .grant-funder { font-size: .85rem; font-weight: 600; color: var(--blue); display: flex; align-items: center; gap: .45rem; }
 .grant-title { font-size: 1.05rem; font-weight: 700; color: var(--navy); line-height: 1.4; }
