@@ -589,3 +589,32 @@ footer a:hover { color: #fff; }
   .timeline { padding-left: 1.25rem; }
   .timeline-marker { left: -1.7rem; }
 }
+/* ── Grants (Research page) ─────────────────────────────────────── */
+.subsection-title--first { margin-top: 0; }
+.grant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 1.5rem;
+}
+.grant-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-top: 4px solid var(--blue); border-radius: var(--radius);
+  padding: 1.5rem 1.6rem; box-shadow: var(--card-shadow);
+  display: flex; flex-direction: column; gap: .6rem;
+  transition: transform .2s, box-shadow .2s;
+}
+.grant-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,.12); }
+.grant-top { display: flex; justify-content: space-between; align-items: center; gap: .5rem; flex-wrap: wrap; }
+.grant-status {
+  font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
+  padding: .2rem .65rem; border-radius: 20px; background: #dcfce7; color: #15803d;
+}
+.grant-status--upcoming { background: #fef3c7; color: #b45309; }
+.grant-role { font-size: .8rem; font-weight: 600; color: var(--navy); }
+.grant-funder { font-size: .85rem; font-weight: 600; color: var(--blue); display: flex; align-items: center; gap: .45rem; }
+.grant-title { font-size: 1.05rem; font-weight: 700; color: var(--navy); line-height: 1.4; }
+.grant-desc { font-size: .9rem; color: var(--slate); flex: 1; }
+.grant-dates {
+  font-size: .82rem; color: var(--slate); display: flex; align-items: center; gap: .45rem;
+  padding-top: .6rem; border-top: 1px solid var(--border);
+}
