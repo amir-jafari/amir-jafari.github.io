@@ -423,11 +423,17 @@ def write_js(data):
     print("data/publications.js regenerated.")
 
 
-def bump_cache_version():
+def update_index_html(metrics):
+    """Bump the ?v= cache stamp and refresh the About page's static metrics."""
     version = datetime.now().strftime("%Y%m%d%H%M")
     with open(INDEX_HTML, encoding="utf-8") as f:
         html = f.read()
     updated = re.sub(r'(\.js\?v=)\d+', rf'\g<1>{version}', html)
+    for key in ("citations", "h_index", "i10_index"):
+        if metrics.get(key) is None:
+            continue
+        value = f"{metrics[key]}+" if key == "citations" else str(metrics[key])
+        updated = re.sub(rf'(data-metric="{key}">)[^<]*(<)', rf'\g<1>{value}\g<2>', updated)
     if updated != html:
         with open(INDEX_HTML, "w", encoding="utf-8", newline="\n") as f:
             f.write(updated)
@@ -453,7 +459,7 @@ def main():
 
     print("data/publications.json updated.")
     write_js(data)
-    bump_cache_version()
+    update_index_html(metrics)
 
 
 if __name__ == "__main__":

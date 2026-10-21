@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateNavActive(pageId);
     if (pageId === 'publications') { loadPublications(); pubsLoaded = true; }
   }
+  if (window.PUBLICATIONS_DATA) renderAboutMetrics(window.PUBLICATIONS_DATA);
 });
 
 // ── Navbar shadow on scroll ────────────────────────────────────────
@@ -98,6 +99,7 @@ function renderPublications(data, container) {
   // hidden: set by the sync script for Scholar entries that aren't really yours
   data = { ...data, papers: (data.papers || []).filter(p => !p.hidden) };
   renderStats(data);
+  renderAboutMetrics(data);
   if (typeof renderCharts === 'function') renderCharts(data);
   renderHighlights(data.papers);
   renderFullList(data.papers, container);
@@ -120,6 +122,17 @@ function renderStats(data) {
     <div class="stat-card"><div class="stat-number">${m.i10_index}</div><div class="stat-label">i10-index</div></div>
     <div class="stat-card"><div class="stat-number">${total}</div><div class="stat-label">Publications</div></div>
   `;
+}
+
+// About page "Citation Metrics" — same source as the Publications stats row
+function renderAboutMetrics(data) {
+  const el = document.getElementById('about-metrics');
+  if (!el || !data.metrics) return;
+  el.querySelectorAll('[data-metric]').forEach(node => {
+    const v = data.metrics[node.dataset.metric];
+    if (v == null) return;
+    node.textContent = node.dataset.metric === 'citations' ? `${v}+` : v;
+  });
 }
 
 function renderHighlights(papers) {
