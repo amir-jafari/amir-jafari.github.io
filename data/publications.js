@@ -12,7 +12,7 @@
 
 window.PUBLICATIONS_DATA = {
   metrics: {
-    citations: 379,
+    citations: 382,
     h_index: 8,
     i10_index: 8,
     citations_by_year: [
@@ -66,7 +66,7 @@ window.PUBLICATIONS_DATA = {
       },
       {
         year: 2026,
-        citations: 73
+        citations: 76
       }
     ]
   },
@@ -238,7 +238,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Computers, Environment and Urban Systems, vol. 109",
       doi: "https://doi.org/10.1016/j.compenvurbsys.2024.102075",
       type: "journal",
-      citations: 28,
+      citations: 29,
       highlight: true
     },
     {
@@ -268,7 +268,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications, vol. 35, no. 7, pp. 5145–5154",
       doi: "https://doi.org/10.1007/s00521-021-06163-8",
       type: "journal",
-      citations: 145,
+      citations: 147,
       highlight: true
     },
     {
