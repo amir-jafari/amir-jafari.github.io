@@ -12,7 +12,7 @@
 
 window.PUBLICATIONS_DATA = {
   metrics: {
-    citations: 382,
+    citations: 386,
     h_index: 8,
     i10_index: 8,
     citations_by_year: [
@@ -62,11 +62,11 @@ window.PUBLICATIONS_DATA = {
       },
       {
         year: 2025,
-        citations: 103
+        citations: 102
       },
       {
         year: 2026,
-        citations: 76
+        citations: 79
       }
     ]
   },
@@ -148,7 +148,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications",
       doi: "https://doi.org/10.1007/s00521-025-11455-4",
       type: "journal",
-      citations: 23,
+      citations: 24,
       highlight: false
     },
     {
@@ -198,7 +198,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications",
       doi: "https://doi.org/10.1007/s00521-024-10397-7",
       type: "journal",
-      citations: 11,
+      citations: 12,
       highlight: false
     },
     {
@@ -238,7 +238,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Computers, Environment and Urban Systems, vol. 109",
       doi: "https://doi.org/10.1016/j.compenvurbsys.2024.102075",
       type: "journal",
-      citations: 29,
+      citations: 30,
       highlight: true
     },
     {
@@ -268,7 +268,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications, vol. 35, no. 7, pp. 5145–5154",
       doi: "https://doi.org/10.1007/s00521-021-06163-8",
       type: "journal",
-      citations: 147,
+      citations: 148,
       highlight: true
     },
     {
