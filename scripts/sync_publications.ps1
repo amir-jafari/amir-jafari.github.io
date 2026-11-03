@@ -43,6 +43,14 @@ function Run($exe, [string[]]$argv) {
 
 Log "=== sync start ==="
 
+# Right after wake, Windows can report the network as up before DNS works,
+# which made a Monday run fail instantly. Wait up to 10 minutes for GitHub.
+$deadline = (Get-Date).AddMinutes(10)
+while (-not (Test-NetConnection github.com -Port 443 -InformationLevel Quiet -WarningAction SilentlyContinue)) {
+    if ((Get-Date) -gt $deadline) { Log "FAILED: github.com unreachable for 10 minutes"; exit 1 }
+    Start-Sleep -Seconds 30
+}
+
 $branch = (git rev-parse --abbrev-ref HEAD).Trim()
 if ($branch -ne "main") { Log "On branch '$branch', not main - skipping."; exit 0 }
 
