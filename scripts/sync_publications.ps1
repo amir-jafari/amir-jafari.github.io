@@ -1,10 +1,10 @@
-# Weekly Google Scholar sync, run by Windows Task Scheduler on a home/office PC.
+# Daily Google Scholar sync, run by Windows Task Scheduler on a home/office PC.
 #
 # Google Scholar blocks GitHub's servers, so the scrape has to run from a
 # residential IP. This pulls, runs update_publications.py, and pushes any
 # changes; GitHub Pages then redeploys the site.
 #
-# Register the weekly task once (no admin needed):
+# Register the daily task once (no admin needed):
 #     powershell -ExecutionPolicy Bypass -File scripts\sync_publications.ps1 -Register
 # Run a sync by hand:
 #     powershell -ExecutionPolicy Bypass -File scripts\sync_publications.ps1
@@ -16,15 +16,15 @@ $TaskName = "Website - Sync Google Scholar publications"
 if ($Register) {
     $action  = New-ScheduledTaskAction -Execute "powershell.exe" -Argument (
         "-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$PSCommandPath`"")
-    $trigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek Monday -At 9am
-    # StartWhenAvailable: if the PC was off/asleep at 9am Monday, run at next wake.
+    $trigger = New-ScheduledTaskTrigger -Daily -At 12pm
+    # StartWhenAvailable: if the PC was off/asleep at noon, run at next wake.
     # Battery flags: Windows otherwise skips the task on a laptop running on battery.
     $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -RunOnlyIfNetworkAvailable `
         -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries `
         -ExecutionTimeLimit (New-TimeSpan -Minutes 20)
     Register-ScheduledTask -TaskName $TaskName -Action $action -Trigger $trigger `
         -Settings $settings -Force | Out-Null
-    "Registered scheduled task '$TaskName' (Mondays 9:00 AM)."
+    "Registered scheduled task '$TaskName' (daily 12:00 PM)."
     exit 0
 }
 
