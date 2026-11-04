@@ -12,7 +12,7 @@
 
 window.PUBLICATIONS_DATA = {
   metrics: {
-    citations: 386,
+    citations: 388,
     h_index: 8,
     i10_index: 8,
     citations_by_year: [
@@ -62,11 +62,11 @@ window.PUBLICATIONS_DATA = {
       },
       {
         year: 2025,
-        citations: 102
+        citations: 101
       },
       {
         year: 2026,
-        citations: 79
+        citations: 82
       }
     ]
   },
@@ -158,7 +158,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications",
       doi: "https://doi.org/10.1007/s00521-025-11324-0",
       type: "journal",
-      citations: 2,
+      citations: 3,
       highlight: false
     },
     {
@@ -198,7 +198,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications",
       doi: "https://doi.org/10.1007/s00521-024-10397-7",
       type: "journal",
-      citations: 12,
+      citations: 13,
       highlight: false
     },
     {
