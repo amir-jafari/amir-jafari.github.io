@@ -1,6 +1,6 @@
 {
   "metrics": {
-    "citations": 390,
+    "citations": 391,
     "h_index": 8,
     "i10_index": 8,
     "citations_by_year": [
@@ -216,7 +216,7 @@
       "venue": "IET Control Theory & Applications, vol. 18, no. 15, pp. 1968–1976",
       "doi": "https://doi.org/10.1049/cth2.12707",
       "type": "journal",
-      "citations": 0,
+      "citations": 1,
       "highlight": false
     },
     {
