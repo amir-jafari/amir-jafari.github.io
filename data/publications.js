@@ -12,7 +12,7 @@
 
 window.PUBLICATIONS_DATA = {
   metrics: {
-    citations: 391,
+    citations: 393,
     h_index: 8,
     i10_index: 8,
     citations_by_year: [
@@ -66,7 +66,7 @@ window.PUBLICATIONS_DATA = {
       },
       {
         year: 2026,
-        citations: 84
+        citations: 85
       }
     ]
   },
@@ -238,7 +238,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Computers, Environment and Urban Systems, vol. 109",
       doi: "https://doi.org/10.1016/j.compenvurbsys.2024.102075",
       type: "journal",
-      citations: 30,
+      citations: 32,
       highlight: true
     },
     {
