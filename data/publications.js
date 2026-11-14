@@ -142,6 +142,16 @@ window.PUBLICATIONS_DATA = {
       highlight: false
     },
     {
+      year: 2026,
+      title: "Benchmark of non-stationary bandit algorithms",
+      authors: "H.C. Puchakayala, T. Wallett, A. Jafari",
+      venue: "Neural Computing and Applications, vol. 38, no. 21",
+      doi: "https://doi.org/10.1007/s00521-026-12583-1",
+      type: "journal",
+      citations: 0,
+      highlight: false
+    },
+    {
       year: 2025,
       title: "FolkRAG: a retrieval-augmented generation system for cultural heritage materials",
       authors: "P. Kelly, J. Schild, A. Jafari",
