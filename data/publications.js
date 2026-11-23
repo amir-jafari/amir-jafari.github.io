@@ -12,7 +12,7 @@
 
 window.PUBLICATIONS_DATA = {
   metrics: {
-    citations: 394,
+    citations: 399,
     h_index: 8,
     i10_index: 8,
     citations_by_year: [
@@ -66,7 +66,7 @@ window.PUBLICATIONS_DATA = {
       },
       {
         year: 2026,
-        citations: 86
+        citations: 91
       }
     ]
   },
@@ -118,7 +118,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications, vol. 38, no. 1",
       doi: "https://doi.org/10.1007/s00521-025-11749-7",
       type: "journal",
-      citations: 3,
+      citations: 4,
       highlight: false
     },
     {
@@ -158,7 +158,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Neural Computing and Applications",
       doi: "https://doi.org/10.1007/s00521-025-11455-4",
       type: "journal",
-      citations: 26,
+      citations: 28,
       highlight: false
     },
     {
@@ -238,7 +238,7 @@ window.PUBLICATIONS_DATA = {
       venue: "IET Control Theory & Applications, vol. 18, no. 15, pp. 1968–1976",
       doi: "https://doi.org/10.1049/cth2.12707",
       type: "journal",
-      citations: 1,
+      citations: 2,
       highlight: false
     },
     {
@@ -248,7 +248,7 @@ window.PUBLICATIONS_DATA = {
       venue: "Computers, Environment and Urban Systems, vol. 109",
       doi: "https://doi.org/10.1016/j.compenvurbsys.2024.102075",
       type: "journal",
-      citations: 32,
+      citations: 33,
       highlight: true
     },
     {
